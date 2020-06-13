@@ -21,8 +21,9 @@ import {
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Subject from './screens/subjectScreen';
+import Navigator from './routes/homeStack';
 
 const App = () => {
-  return <Subject />;
+  return <Navigator />;
 };
 export default App;
