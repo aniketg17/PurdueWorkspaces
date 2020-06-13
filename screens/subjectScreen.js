@@ -11,7 +11,7 @@ import 'react-native-gesture-handler';
 import {pink} from 'color-name';
 import {NavigationContainer} from '@react-navigation/native';
 
-const SubjectScreen = () => {
+const SubjectScreen = props => {
   const [subjects, setSubject] = useState([]);
   const SUBJECT_QUERY_URL = 'http://api.purdue.io/odata/Subjects';
   const [loading, setLoading] = useState(true);
@@ -24,21 +24,17 @@ const SubjectScreen = () => {
       .finally(() => setLoading(false));
   });
 
-  const getSubjectList = param => {
-    console.log(param.item.Name);
-  };
-
   return (
     <View style={styles.container}>
       <FlatList
         data={subjects}
         keyExtractor={({SubjectId}) => SubjectId}
-        renderItem={param => (
+        renderItem={({item}) => (
           <TouchableOpacity
             style={styles.item}
-            onPress={() => getSubjectList(param)}>
+            onPress={() => props.navigation.navigate('Class', item)}>
             <Text>
-              {param.item.Name} ({param.item.Abbreviation})
+              {item.Name} ({item.Abbreviation})
             </Text>
           </TouchableOpacity>
         )}
