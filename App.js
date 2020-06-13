@@ -1,3 +1,4 @@
+/* eslint-disable no-trailing-spaces */
 /* eslint-disable quotes */
 /* eslint-disable no-unused-vars */
 /* eslint-disable prettier/prettier */
@@ -17,6 +18,7 @@ const App = () => {
   const [subjects, setSubject] = useState([]);
   const SUBJECT_QUERY_URL = 'http://api.purdue.io/odata/Subjects';
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     fetch(SUBJECT_QUERY_URL)
       .then(response => response.json())
@@ -32,7 +34,7 @@ const App = () => {
         keyExtractor={({SubjectId}) => SubjectId}
         renderItem={param => (
           <Text style={styles.item}>
-            {param.item.Name}, {param.item.Abbreviation}
+            {param.item.Name} ({param.item.Abbreviation})
           </Text>
         )}
       />
