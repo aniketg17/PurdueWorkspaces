@@ -11,7 +11,14 @@
  */
 
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, ListView, FlatList, View, Text} from 'react-native';
+import {
+  StyleSheet,
+  ListView,
+  FlatList,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import {pink} from 'color-name';
 
 const App = () => {
@@ -27,15 +34,23 @@ const App = () => {
       .finally(() => setLoading(false));
   });
 
+  const getSubjectList = param => {
+    console.log(param.item.Name);
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
         data={subjects}
         keyExtractor={({SubjectId}) => SubjectId}
         renderItem={param => (
-          <Text style={styles.item}>
-            {param.item.Name} ({param.item.Abbreviation})
-          </Text>
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => getSubjectList(param)}>
+            <Text>
+              {param.item.Name} ({param.item.Abbreviation})
+            </Text>
+          </TouchableOpacity>
         )}
       />
     </View>
