@@ -1,12 +1,50 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 
 const ClassScreen = ({navigation}) => {
+  const [subjects, setSubject] = useState([]);
+  const SUBJECT_QUERY_URL =
+    'http://api.purdue.io/odata/Courses?%24filter=Subject/Abbreviation%20eq%20%27' +
+    navigation.getParam('Abbreviation') +
+    '%27&%24orderby=Number%20asc';
+
+  useEffect(() => {
+    fetch(SUBJECT_QUERY_URL)
+      .then(response => response.json())
+      .then(json => setSubject(json.value))
+      .catch(error => console.error(error));
+  });
+
   return (
-    <View>
-      <Text>{navigation.getParam('SubjectId')}</Text>
+    <View style={styles.container}>
+      <FlatList
+        data={subjects}
+        keyExtractor={({CourseId}) => CourseId}
+        renderItem={({item}) => (
+          <TouchableOpacity style={styles.item}>
+            <Text>
+              {navigation.getParam('Abbreviation')} {item.Number} ({item.Title})
+            </Text>
+          </TouchableOpacity>
+        )}
+      />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 50,
+    backgroundColor: '#fff',
+    paddingHorizontal: 20,
+  },
+  item: {
+    marginTop: 24,
+    padding: 30,
+    backgroundColor: 'pink',
+    fontSize: 24,
+  },
+});
 
 export default ClassScreen;
