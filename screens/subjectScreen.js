@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
-  ListView,
+  ActivityIndicator,
   FlatList,
   View,
   Text,
@@ -24,6 +24,18 @@ const SubjectScreen = props => {
       .finally(() => setLoading(false));
   });
 
+  const renderLoader = () => {
+    if (!loading) {
+      return (
+        <View style={styles.loader}>
+          <ActivityIndicator animating size="large" />
+        </View>
+      );
+    } else {
+      return null;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -38,6 +50,7 @@ const SubjectScreen = props => {
             </Text>
           </TouchableOpacity>
         )}
+        ListFooterComponent={renderLoader}
       />
     </View>
   );
