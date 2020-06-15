@@ -10,8 +10,9 @@ import {
 } from 'react-native';
 import 'react-native-gesture-handler';
 import {TextInput} from 'react-native-gesture-handler';
+import SearchBar from '../components/searchBar';
 
-const SubjectScreen = props => {
+const SubjectScreen = ({navigation}) => {
   const [subjects, setSubject] = useState([]);
   const SUBJECT_QUERY_URL = 'http://api.purdue.io/odata/Subjects';
   const [loading, setLoading] = useState(true);
@@ -58,24 +59,14 @@ const SubjectScreen = props => {
 
   return (
     <View style={styles.container}>
-      <View>
-        <TextInput
-          style={styles.searchbar}
-          value={query}
-          autoCapitalize="words"
-          placeholder="Search..."
-          autoCorrect={false}
-          onChangeText={word => searchText(word)}
-        />
-      </View>
+      <SearchBar query={query} searchText={searchText} />
       <FlatList
-        //extraData={subjects}
         data={filtered}
         keyExtractor={({SubjectId}) => SubjectId}
         renderItem={({item}) => (
           <TouchableOpacity
             style={styles.item}
-            onPress={() => props.navigation.navigate('Class', item)}>
+            onPress={() => navigation.navigate('Class', item)}>
             <Text style={styles.text}>
               {item.Name} ({item.Abbreviation})
             </Text>
@@ -104,14 +95,6 @@ const styles = StyleSheet.create({
     fontFamily: 'cochin',
     fontWeight: 'normal',
     fontSize: 24,
-  },
-  searchbar: {
-    textAlign: 'center',
-    height: 42,
-    borderWidth: 1,
-    borderColor: '#009688',
-    borderRadius: 50,
-    backgroundColor: '#FFFF',
   },
 });
 

@@ -22,7 +22,7 @@ const ClassScreen = ({navigation}) => {
       .then(json => setSubject(json.value))
       .catch(error => console.error(error))
       .finally(() => setLoaded(true));
-  });
+  }, []);
 
   const renderLoader = () => {
     if (!loaded) {
