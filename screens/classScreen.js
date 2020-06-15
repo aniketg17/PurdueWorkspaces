@@ -5,7 +5,6 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
-  List,
   ActivityIndicator,
 } from 'react-native';
 
@@ -44,7 +43,7 @@ const ClassScreen = ({navigation}) => {
         keyExtractor={({CourseId}) => CourseId}
         renderItem={({item}) => (
           <TouchableOpacity style={styles.item}>
-            <Text>
+            <Text style={styles.text}>
               {navigation.getParam('Abbreviation')} {item.Number} ({item.Title})
             </Text>
           </TouchableOpacity>
@@ -65,12 +64,18 @@ const styles = StyleSheet.create({
   item: {
     marginTop: 24,
     padding: 30,
-    backgroundColor: 'pink',
+    backgroundColor: '#f0fff0',
     fontSize: 24,
+    borderRadius: 50,
   },
   loader: {
     paddingVertical: 20,
     borderColor: '#CED0CE',
+  },
+  text: {
+    fontFamily: 'cochin',
+    fontWeight: 'normal',
+    fontSize: 24,
   },
 });
 
