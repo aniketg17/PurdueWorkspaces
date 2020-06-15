@@ -7,19 +7,25 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
+import SearchBar from '../components/searchBar';
 
 const ClassScreen = ({navigation}) => {
-  const [subjects, setSubject] = useState([]);
+  const [classes, setClasses] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const SUBJECT_QUERY_URL =
     'http://api.purdue.io/odata/Courses?%24filter=Subject/Abbreviation%20eq%20%27' +
     navigation.getParam('Abbreviation') +
     '%27&%24orderby=Number%20asc';
+  const [query, setQuery] = useState('');
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     fetch(SUBJECT_QUERY_URL)
       .then(response => response.json())
-      .then(json => setSubject(json.value))
+      .then(json => {
+        setClasses(json.value);
+        setFilteredData(json.value);
+      })
       .catch(error => console.error(error))
       .finally(() => setLoaded(true));
   }, []);
@@ -36,10 +42,25 @@ const ClassScreen = ({navigation}) => {
     }
   };
 
+  const searchText = text => {
+    setQuery(text);
+    const formattedQuery = text.toLowerCase();
+    const finder = classes.filter(item => {
+      const formattedItem =
+        navigation.getParam('Abbreviation').toLowerCase() +
+        item.Title.toString().toLowerCase() +
+        item.Number.toString().toLowerCase();
+      return formattedItem.includes(formattedQuery);
+    });
+
+    setFilteredData(finder);
+  };
+
   return (
     <View style={styles.container}>
+      <SearchBar query={query} searchText={searchText} />
       <FlatList
-        data={subjects}
+        data={filteredData}
         keyExtractor={({CourseId}) => CourseId}
         renderItem={({item}) => (
           <TouchableOpacity style={styles.item}>
