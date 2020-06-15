@@ -16,17 +16,18 @@ const SubjectScreen = props => {
   const SUBJECT_QUERY_URL = 'http://api.purdue.io/odata/Subjects';
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
+  const [filtered, setFiltered] = useState([]);
 
   useEffect(() => {
     fetch(SUBJECT_QUERY_URL)
       .then(response => response.json())
       .then(json => {
         setSubject(json.value);
-        //setHaystack(json.value);
+        setFiltered(json.value);
       })
       .catch(error => console.error(error))
       .finally(() => setLoading(false));
-  }, []);
+  }, []); // passing an empty array to ensure useeffect only runs once
 
   const renderLoader = () => {
     if (loading) {
@@ -42,27 +43,17 @@ const SubjectScreen = props => {
 
   const searchText = text => {
     setQuery(text);
-    //subjects.
-    setSubject([
-      {Name: 'Aniket', Abbreviation: 'Gup'},
-      {Name: 'Gupta', Abbreviation: 'KS'},
-    ]);
-    // setQuery(text);
-    // console.log(text);
-    // const formattedQuery = text.toLowerCase();
-    // const search = subjects.filter(subject => {
-    //   const formatSubject = subject.Name.toString().toLowerCase();
-    //   console.log(formatSubject.includes(formattedQuery));
-    //   return formatSubject.includes(formattedQuery);
-    // });
 
-    // //console.log(needle);
-    // if (search == true) {
-    //   console.log(true);
-    //   setSubject(needle);
-    // } else {
-    //   console.log('FALSE');
-    // }
+    const formattedQuery = text.toLowerCase();
+    const search = subjects.filter(item => {
+      const formatSubject =
+        item.Name.toString().toLowerCase() +
+        ' ' +
+        item.Abbreviation.toString().toLowerCase();
+      return formatSubject.includes(formattedQuery);
+    });
+
+    setFiltered(search);
   };
 
   return (
@@ -78,8 +69,8 @@ const SubjectScreen = props => {
         />
       </View>
       <FlatList
-        extraData={subjects}
-        data={subjects}
+        //extraData={subjects}
+        data={filtered}
         keyExtractor={({SubjectId}) => SubjectId}
         renderItem={({item}) => (
           <TouchableOpacity
@@ -115,11 +106,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   searchbar: {
-    borderRadius: 40,
-    height: 50,
-    width: 350,
-    alignContent: 'center',
-    backgroundColor: 'grey',
+    textAlign: 'center',
+    height: 42,
+    borderWidth: 1,
+    borderColor: '#009688',
+    borderRadius: 50,
+    backgroundColor: '#FFFF',
   },
 });
 
