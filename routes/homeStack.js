@@ -2,6 +2,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
 import Subject from '../screens/subjectScreen';
 import Class from '../screens/classScreen';
+import Workspace from '../screens/newWorkspaceForm';
 
 const screens = {
   Subject: {
@@ -9,6 +10,9 @@ const screens = {
   },
   Class: {
     screen: Class,
+  },
+  Workspace: {
+    screen: Workspace,
   },
 };
 

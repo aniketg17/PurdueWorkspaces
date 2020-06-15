@@ -63,7 +63,9 @@ const ClassScreen = ({navigation}) => {
         data={filteredData}
         keyExtractor={({CourseId}) => CourseId}
         renderItem={({item}) => (
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => navigation.navigate('Workspace')}>
             <Text style={styles.text}>
               {navigation.getParam('Abbreviation')} {item.Number} ({item.Title})
             </Text>
