@@ -66,7 +66,9 @@ const SubjectScreen = ({navigation}) => {
         renderItem={({item}) => (
           <TouchableOpacity
             style={styles.item}
-            onPress={() => navigation.navigate('Class', item)}>
+            onPress={() => {
+              navigation.navigate('Class', item);
+            }}>
             <Text style={styles.text}>
               {item.Name} ({item.Abbreviation})
             </Text>

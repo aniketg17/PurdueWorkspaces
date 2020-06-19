@@ -13,7 +13,6 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 import Navigator from './routes/homeStack';
-import Workspace from './screens/subjectScreen';
 
 const App = () => {
   return <Navigator />;

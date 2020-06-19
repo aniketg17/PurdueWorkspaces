@@ -8,6 +8,8 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import SearchBar from '../components/searchBar';
+import 'react-native-gesture-handler';
+import {sub} from 'react-native-reanimated';
 
 const ClassScreen = ({navigation}) => {
   const [classes, setClasses] = useState([]);
@@ -28,7 +30,7 @@ const ClassScreen = ({navigation}) => {
       })
       .catch(error => console.error(error))
       .finally(() => setLoaded(true));
-  }, []);
+  }, [SUBJECT_QUERY_URL]);
 
   const renderLoader = () => {
     if (!loaded) {
@@ -65,7 +67,21 @@ const ClassScreen = ({navigation}) => {
         renderItem={({item}) => (
           <TouchableOpacity
             style={styles.item}
-            onPress={() => navigation.navigate('Workspace')}>
+            onPress={() => {
+              const subTitle = navigation.getParam('Abbreviation');
+              const dataTransfer = {
+                TitleSubject: subTitle,
+                Number: item.Number,
+              };
+              console.log(
+                navigation.getParam('Abbreviation') +
+                  ' ' +
+                  dataTransfer.TitleSubject +
+                  ' ' +
+                  dataTransfer.Number,
+              );
+              navigation.navigate('Workspace', dataTransfer);
+            }}>
             <Text style={styles.text}>
               {navigation.getParam('Abbreviation')} {item.Number} ({item.Title})
             </Text>
