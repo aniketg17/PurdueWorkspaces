@@ -6,13 +6,11 @@ import TimePicker from 'react-native-simple-time-picker';
 import {Picker} from '@react-native-community/picker';
 
 const WorkspaceForm = ({navigation}) => {
-  const [time, setTime] = useState({
-    selectedHours: 0,
-    selectedMinutes: 0,
-  });
-  const [minutes, setMinutes] = useState(0);
-
+  const [minutes, setMinutes] = useState('Choose duration for session...');
+  const [showClock, setClock] = useState(false);
+  const [showDuration, setShowDuration] = useState(false);
   const [date, setDate] = useState(new Date(1598051730000));
+  const [title, setTitle] = useState('');
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -20,33 +18,79 @@ const WorkspaceForm = ({navigation}) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.formLabel}>
         Subject : {navigation.getParam('TitleSubject')}
       </Text>
       <Text style={styles.formLabel}>
         Class : {navigation.getParam('Number')}
       </Text>
-      <Text>Select start time</Text>
-      <DateTimePicker
-        testID="dateTimePicker"
-        value={date}
-        mode="time"
-        is24Hour={true}
-        display="default"
-        onChange={onChange}
+      <TextInput
+        placeholder="Title"
+        value={title}
+        onChangeText={text => {
+          setTitle(text);
+        }}
+        onFocus={() => {
+          setShowDuration(false);
+          setClock(false);
+        }}
       />
+      <TextInput
+        placeholder="Additional info..."
+        value={title}
+        onChangeText={text => {
+          setTitle(text);
+        }}
+        onFocus={() => {
+          setShowDuration(false);
+          setClock(false);
+        }}
+      />
+      <TextInput
+        placeholder="Choose starting time for session..."
+        value={date}
+        onFocus={() => {
+          setShowDuration(false);
+          setClock(true);
+        }}
+      />
+      {showClock && (
+        <DateTimePicker
+          style={styles.spinner}
+          testID="dateTimePicker"
+          value={date}
+          mode="time"
+          is24Hour={true}
+          display="default"
+          onChange={onChange}
+        />
+      )}
 
       <View style={styles.container}>
-        <Picker
-          selectedValue={minutes}
-          style={{height: 50, width: 300}}
-          onValueChange={minutes => setMinutes(minutes)}>
-          <Picker.Item label="30 minutes" value={30} />
-          <Picker.Item label="1 hour" value={60} />
-          <Picker.Item label="2 hours" value={120} />
-          <Picker.Item label="3 hours" value={180} />
-        </Picker>
+        <TextInput
+          placeholder="Choose duration for session..."
+          value={minutes}
+          style={styles.inputStyle}
+          onFocus={() => {
+            setClock(false);
+            setShowDuration(true);
+          }}
+        />
+        {showDuration && (
+          <Picker
+            selectedValue={minutes}
+            style={{height: 50, width: 300}}
+            onValueChange={minutes => {
+              setMinutes(minutes);
+            }}>
+            <Picker.Item label="Set duration" value="Set duration" />
+            <Picker.Item label="30 minutes" value="30 minutes" />
+            <Picker.Item label="1 hour" value="1 hour" />
+            <Picker.Item label="2 hours" value="2 hours" />
+            <Picker.Item label="3 hours" value="3 hours" />
+          </Picker>
+        )}
       </View>
     </View>
   );
@@ -56,6 +100,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f0f8ff',
+    justifyContent: 'center',
     alignItems: 'center',
   },
 
@@ -83,11 +128,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   spinner: {
-    // alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 0,
 
-    height: 50,
+    height: 150,
     width: 200,
   },
 });
