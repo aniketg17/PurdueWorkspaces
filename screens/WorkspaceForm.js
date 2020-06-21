@@ -1,10 +1,16 @@
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, TextInput, Button} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import TimePicker from 'react-native-simple-time-picker';
 import {Picker} from '@react-native-community/picker';
-import database from '@react-native-firebase/database';
+import firestore from '@react-native-firebase/firestore';
 
 const WorkspaceForm = ({navigation}) => {
   const [minutes, setMinutes] = useState('Choose duration for session...');
@@ -16,6 +22,18 @@ const WorkspaceForm = ({navigation}) => {
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
+  };
+
+  const add = () => {
+    firestore()
+      .collection('users')
+      .add({
+        name: 'aniket',
+        email: 'aniketblala@gmail.com',
+      })
+      .then(() => {
+        console.log('done something');
+      });
   };
 
   return (
@@ -48,6 +66,9 @@ const WorkspaceForm = ({navigation}) => {
           setClock(false);
         }}
       />
+      <TouchableOpacity onPress={() => add()}>
+        <Text>PRESS ME</Text>
+      </TouchableOpacity>
       <TextInput
         placeholder="Choose starting time for session..."
         //value={date}
