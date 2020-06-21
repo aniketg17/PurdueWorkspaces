@@ -20,15 +20,15 @@ const WorkspaceForm = ({navigation}) => {
   const [date, setDate] = useState(new Date());
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [convertedDate, setConvertedDate] = useState('');
+  const [convertedTime, setConvertedTime] = useState('');
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
-    var convertedDate = moment(currentDate)
+    var convertedTime = moment(currentDate)
       .tz('America/New_York')
       .format('HH:mm');
-    setConvertedDate(convertedDate);
+    setConvertedTime(convertedTime);
   };
 
   const addUserDetails = () => {
@@ -38,8 +38,7 @@ const WorkspaceForm = ({navigation}) => {
       class: navigation.getParam('Number'),
       description: description,
       duration: minutes,
-      // eslint-disable-next-line prettier/prettier
-      startTime: date.getUTCHours() - 4 + ': ' + date.getMinutes(),
+      startTime: convertedTime,
       // location: location
     };
     firestore()
@@ -52,7 +51,6 @@ const WorkspaceForm = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Text>{convertedDate}</Text>
       <Text style={styles.formLabel}>
         Subject : {navigation.getParam('TitleSubject')}
       </Text>
@@ -86,7 +84,7 @@ const WorkspaceForm = ({navigation}) => {
       </TouchableOpacity>
       <TextInput
         placeholder="Choose starting time for session..."
-        //value={date}
+        value={convertedTime}
         onFocus={() => {
           setShowDuration(false);
           setClock(true);
