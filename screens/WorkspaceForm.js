@@ -8,36 +8,51 @@ import {
 } from 'react-native';
 import 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import TimePicker from 'react-native-simple-time-picker';
+import moment from 'moment';
+import 'moment-timezone';
 import {Picker} from '@react-native-community/picker';
 import firestore from '@react-native-firebase/firestore';
 
 const WorkspaceForm = ({navigation}) => {
-  const [minutes, setMinutes] = useState('Choose duration for session...');
+  const [minutes, setMinutes] = useState('');
   const [showClock, setClock] = useState(false);
   const [showDuration, setShowDuration] = useState(false);
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [date, setDate] = useState(new Date());
   const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [convertedDate, setConvertedDate] = useState('');
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
+    var convertedDate = moment(currentDate)
+      .tz('America/New_York')
+      .format('HH:mm');
+    setConvertedDate(convertedDate);
   };
 
-  const add = () => {
+  const addUserDetails = () => {
+    const data = {
+      title: title,
+      subject: navigation.getParam('TitleSubject'),
+      class: navigation.getParam('Number'),
+      description: description,
+      duration: minutes,
+      // eslint-disable-next-line prettier/prettier
+      startTime: date.getUTCHours() - 4 + ': ' + date.getMinutes(),
+      // location: location
+    };
     firestore()
-      .collection('users')
-      .add({
-        name: 'aniket',
-        email: 'aniketblala@gmail.com',
-      })
+      .collection('sessions')
+      .add(data)
       .then(() => {
-        console.log('done something');
+        console.log('added details');
       });
   };
 
   return (
     <View style={styles.container}>
+      <Text>{convertedDate}</Text>
       <Text style={styles.formLabel}>
         Subject : {navigation.getParam('TitleSubject')}
       </Text>
@@ -57,16 +72,16 @@ const WorkspaceForm = ({navigation}) => {
       />
       <TextInput
         placeholder="Additional info..."
-        value={title}
+        value={description}
         onChangeText={text => {
-          setTitle(text);
+          setDescription(text);
         }}
         onFocus={() => {
           setShowDuration(false);
           setClock(false);
         }}
       />
-      <TouchableOpacity onPress={() => add()}>
+      <TouchableOpacity onPress={() => addUserDetails()}>
         <Text>PRESS ME</Text>
       </TouchableOpacity>
       <TextInput
@@ -104,13 +119,17 @@ const WorkspaceForm = ({navigation}) => {
             selectedValue={minutes}
             style={{height: 50, width: 300}}
             onValueChange={minutes => {
-              setMinutes(minutes);
+              if (minutes != '---') {
+                setMinutes(minutes);
+              } else {
+                setMinutes('');
+              }
             }}>
-            <Picker.Item label="Set duration" value="Set duration" />
-            <Picker.Item label="30 minutes" value="30 minutes" />
-            <Picker.Item label="1 hour" value="1 hour" />
-            <Picker.Item label="2 hours" value="2 hours" />
-            <Picker.Item label="3 hours" value="3 hours" />
+            <Picker.Item label="---" value="---" />
+            <Picker.Item label="30 minutes" value="30 minutes" />
+            <Picker.Item label="1 hour" value="1 hour" />
+            <Picker.Item label="2 hours" value="2 hours" />
+            <Picker.Item label="3 hours" value="3 hours" />
           </Picker>
         )}
       </View>
