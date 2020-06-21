@@ -4,6 +4,7 @@ import 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import TimePicker from 'react-native-simple-time-picker';
 import {Picker} from '@react-native-community/picker';
+import database from '@react-native-firebase/database';
 
 const WorkspaceForm = ({navigation}) => {
   const [minutes, setMinutes] = useState('Choose duration for session...');
@@ -49,7 +50,7 @@ const WorkspaceForm = ({navigation}) => {
       />
       <TextInput
         placeholder="Choose starting time for session..."
-        value={date}
+        //value={date}
         onFocus={() => {
           setShowDuration(false);
           setClock(true);
