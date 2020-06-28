@@ -51,6 +51,9 @@ const WorkspaceForm = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity>
+        <Text>Select Location</Text>
+      </TouchableOpacity>
       <Text style={styles.formLabel}>
         Subject : {navigation.getParam('TitleSubject')}
       </Text>
@@ -84,6 +87,7 @@ const WorkspaceForm = ({navigation}) => {
       </TouchableOpacity>
       <TextInput
         placeholder="Choose starting time for session..."
+        style={styles.inputStyle}
         value={convertedTime}
         onFocus={() => {
           setShowDuration(false);
@@ -102,36 +106,36 @@ const WorkspaceForm = ({navigation}) => {
         />
       )}
 
-      <View style={styles.container}>
-        <TextInput
-          placeholder="Choose duration for session..."
-          value={minutes}
-          style={styles.inputStyle}
-          onFocus={() => {
-            setClock(false);
-            setShowDuration(true);
-          }}
-        />
-        {showDuration && (
-          <Picker
-            selectedValue={minutes}
-            style={{height: 50, width: 300}}
-            onValueChange={minutes => {
-              if (minutes != '---') {
-                setMinutes(minutes);
-              } else {
-                setMinutes('');
-              }
-            }}>
-            <Picker.Item label="---" value="---" />
-            <Picker.Item label="30 minutes" value="30 minutes" />
-            <Picker.Item label="1 hour" value="1 hour" />
-            <Picker.Item label="2 hours" value="2 hours" />
-            <Picker.Item label="3 hours" value="3 hours" />
-          </Picker>
-        )}
-      </View>
+      {/* <View style={styles.container}> */}
+      <TextInput
+        placeholder="Choose duration for session..."
+        value={minutes}
+        style={styles.inputStyle}
+        onFocus={() => {
+          setClock(false);
+          setShowDuration(true);
+        }}
+      />
+      {showDuration && (
+        <Picker
+          selectedValue={minutes}
+          style={{height: 30, width: 300}}
+          onValueChange={minutes => {
+            if (minutes != '---') {
+              setMinutes(minutes);
+            } else {
+              setMinutes('');
+            }
+          }}>
+          <Picker.Item label="---" value="---" />
+          <Picker.Item label="30 minutes" value="30 minutes" />
+          <Picker.Item label="1 hour" value="1 hour" />
+          <Picker.Item label="2 hours" value="2 hours" />
+          <Picker.Item label="3 hours" value="3 hours" />
+        </Picker>
+      )}
     </View>
+    // </View>
   );
 };
 
@@ -176,17 +180,3 @@ const styles = StyleSheet.create({
 });
 
 export default WorkspaceForm;
-
-// for dual time spinner
-{
-  /* <TimePicker
-        selectedHours={time.selectedHours}
-        selectedMinutes={time.selectedMinutes}
-        onChange={(hours, minutes) =>
-          setTime({
-            selectedHours: hours,
-            selectedMinutes: minutes,
-          })
-        }
-      /> */
-}
