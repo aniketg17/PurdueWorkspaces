@@ -88,7 +88,9 @@ const WorkspaceForm = ({navigation}) => {
       <TextInput
         placeholder="Choose starting time for session..."
         style={styles.inputStyle}
-        value={convertedTime}
+        value={moment(date)
+          .format('HH:mm')
+          .toString()}
         onFocus={() => {
           setShowDuration(false);
           setClock(true);
