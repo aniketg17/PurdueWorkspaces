@@ -3,6 +3,7 @@ import {createAppContainer} from 'react-navigation';
 import Subject from '../screens/subjectScreen';
 import Class from '../screens/classScreen';
 import Workspace from '../screens/WorkspaceForm';
+import Map from '../screens/maps';
 
 const screens = {
   Subject: {
@@ -13,6 +14,9 @@ const screens = {
   },
   Workspace: {
     screen: Workspace,
+  },
+  Map: {
+    screen: Map,
   },
 };
 

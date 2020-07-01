@@ -14,21 +14,26 @@ import {Picker} from '@react-native-community/picker';
 import firestore from '@react-native-firebase/firestore';
 
 const WorkspaceForm = ({navigation}) => {
-  const [minutes, setMinutes] = useState('');
+  const [duration, setDuration] = useState('');
   const [showClock, setClock] = useState(false);
   const [showDuration, setShowDuration] = useState(false);
   const [date, setDate] = useState(new Date());
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [convertedTime, setConvertedTime] = useState('');
+  const [originalTime, setOriginalTime] = useState('');
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
-    var convertedTime = moment(currentDate)
+    const converted = moment(currentDate)
       .tz('America/New_York')
       .format('HH:mm');
-    setConvertedTime(convertedTime);
+    setConvertedTime(converted);
+    const currentTime = moment(currentDate)
+      .format('HH:mm')
+      .toString();
+    setOriginalTime(currentTime);
   };
 
   const addUserDetails = () => {
@@ -37,7 +42,7 @@ const WorkspaceForm = ({navigation}) => {
       subject: navigation.getParam('TitleSubject'),
       class: navigation.getParam('Number'),
       description: description,
-      duration: minutes,
+      duration: duration,
       startTime: convertedTime,
       // location: location
     };
@@ -51,7 +56,7 @@ const WorkspaceForm = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Map')}>
         <Text>Select Location</Text>
       </TouchableOpacity>
       <Text style={styles.formLabel}>
@@ -88,9 +93,7 @@ const WorkspaceForm = ({navigation}) => {
       <TextInput
         placeholder="Choose starting time for session..."
         style={styles.inputStyle}
-        value={moment(date)
-          .format('HH:mm')
-          .toString()}
+        value={originalTime}
         onFocus={() => {
           setShowDuration(false);
           setClock(true);
@@ -111,7 +114,7 @@ const WorkspaceForm = ({navigation}) => {
       {/* <View style={styles.container}> */}
       <TextInput
         placeholder="Choose duration for session..."
-        value={minutes}
+        value={duration}
         style={styles.inputStyle}
         onFocus={() => {
           setClock(false);
@@ -120,13 +123,13 @@ const WorkspaceForm = ({navigation}) => {
       />
       {showDuration && (
         <Picker
-          selectedValue={minutes}
+          selectedValue={duration}
           style={{height: 30, width: 300}}
           onValueChange={minutes => {
-            if (minutes != '---') {
-              setMinutes(minutes);
+            if (minutes !== '---') {
+              setDuration(minutes);
             } else {
-              setMinutes('');
+              setDuration('');
             }
           }}>
           <Picker.Item label="---" value="---" />
