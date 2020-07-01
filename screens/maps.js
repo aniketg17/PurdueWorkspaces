@@ -2,10 +2,11 @@ import React from 'react';
 import MapView from 'react-native-maps';
 import {StyleSheet, Dimensions, View} from 'react-native';
 
-const Maps = () => {
+const map = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <MapView
+        style={styles.map}
         initialRegion={{
           latitude: 37.78825,
           longitude: -122.4324,
@@ -17,4 +18,16 @@ const Maps = () => {
   );
 };
 
-export default Maps;
+let {height, width} = Dimensions.get('window');
+const styles = StyleSheet.create({
+  container: {
+    height: height,
+    width: width,
+  },
+
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
+});
+
+export default map;
