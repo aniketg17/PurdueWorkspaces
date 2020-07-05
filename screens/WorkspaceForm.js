@@ -97,7 +97,7 @@ const WorkspaceForm = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text>{navigation.getParam('descrip')}</Text>
-      <TouchableOpacity onPress={() => navigation.navigate('Map')}>
+      <TouchableOpacity onPress={() => navigation.navigate('Locations')}>
         <Text>Select Location</Text>
       </TouchableOpacity>
       <Text style={styles.formLabel}>
@@ -151,8 +151,6 @@ const WorkspaceForm = ({navigation}) => {
           onChange={onChange}
         />
       )}
-
-      {/* <View style={styles.container}> */}
       <TextInput
         placeholder="Choose duration for session..."
         value={duration}
@@ -181,7 +179,6 @@ const WorkspaceForm = ({navigation}) => {
         </Picker>
       )}
     </View>
-    // </View>
   );
 };
 

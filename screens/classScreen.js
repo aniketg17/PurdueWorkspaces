@@ -73,7 +73,6 @@ const ClassScreen = ({navigation}) => {
               const dataTransfer = {
                 TitleSubject: subTitle,
                 Number: item.Number,
-                Route: navigation.getParam('route'),
               };
               console.log(
                 itemData.Abbreviation.toString() +
@@ -82,7 +81,11 @@ const ClassScreen = ({navigation}) => {
                   ' ' +
                   dataTransfer.Number,
               );
-              navigation.navigate('Workspace', dataTransfer);
+              if (navigation.getParam('route') == 'new') {
+                navigation.navigate('Workspace', dataTransfer);
+              } else {
+                console.log('More work to be done!');
+              }
             }}>
             <Text style={styles.text}>
               {itemData.Abbreviation.toString()} {item.Number} ({item.Title})
