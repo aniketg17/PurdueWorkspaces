@@ -44,7 +44,8 @@ const WorkspaceForm = ({navigation}) => {
       description: description,
       duration: duration,
       startTime: convertedTime,
-      // location: location
+      latitude: navigation.getParam('lat'),
+      longitude: navigation.getParam('long'),
     };
     firestore()
       .collection('sessions')
@@ -90,8 +91,12 @@ const WorkspaceForm = ({navigation}) => {
           setClock(false);
         }}
       />
-      <TouchableOpacity onPress={() => addUserDetails()}>
-        <Text>PRESS ME</Text>
+      <TouchableOpacity
+        onPress={() => {
+          console.log(navigation.getParam('lat'));
+          addUserDetails();
+        }}>
+        <Text>Submit information</Text>
       </TouchableOpacity>
       <TextInput
         placeholder="Choose starting time for session..."
