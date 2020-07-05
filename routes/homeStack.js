@@ -3,9 +3,13 @@ import {createAppContainer} from 'react-navigation';
 import Subject from '../screens/subjectScreen';
 import Class from '../screens/classScreen';
 import Workspace from '../screens/workspaceForm';
-import Map from '../screens/purdueLocations';
+import Locations from '../screens/purdueLocations';
+import Selection from '../screens/selectionScreen';
 
 const screens = {
+  Selection: {
+    screen: Selection,
+  },
   Subject: {
     screen: Subject,
   },
@@ -15,8 +19,8 @@ const screens = {
   Workspace: {
     screen: Workspace,
   },
-  Map: {
-    screen: Map,
+  Locations: {
+    screen: Locations,
   },
 };
 
