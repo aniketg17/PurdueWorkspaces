@@ -2,8 +2,8 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
 import Subject from '../screens/subjectScreen';
 import Class from '../screens/classScreen';
-import Workspace from '../screens/WorkspaceForm';
-import Map from '../screens/maps';
+import Workspace from '../screens/workspaceForm';
+import Map from '../screens/purdueLocations';
 
 const screens = {
   Subject: {
