@@ -22,18 +22,22 @@ const WorkspaceForm = ({navigation}) => {
   const [description, setDescription] = useState('');
   const [convertedTime, setConvertedTime] = useState('');
   const [originalTime, setOriginalTime] = useState('');
+  const [formattedDate, setFormattedDate] = useState('');
+  const [endTime, setEndTime] = useState('');
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
     const converted = moment(currentDate)
       .tz('America/New_York')
-      .format('HH:mm');
+      .format('HH:mm'); // date to be used in firestore in EST
     setConvertedTime(converted);
     const currentTime = moment(currentDate)
-      .format('HH:mm')
-      .toString();
+      .format('hh:mm A')
+      .toString(); // date to be displayed in scrollview
     setOriginalTime(currentTime);
+    const formattedD = moment(currentDate).format('MM-DD-YYYY'); // date to be stored
+    setFormattedDate(formattedD);
   };
 
   const addUserDetails = () => {
@@ -42,8 +46,13 @@ const WorkspaceForm = ({navigation}) => {
       ',',
       locationDescrip.indexOf(',') + 1,
     );
+    var durationInteger = duration.split(' ');
+    durationInteger = parseInt(durationInteger[0]);
     const substringTillStreet = locationDescrip.slice(0, index);
-
+    console.log(durationInteger);
+    const endMoment = moment(date).add(durationInteger, 'hours');
+    const end = endMoment.tz('America/New_York').format('HH:mm');
+    const endDate = endMoment.format('MM-DD-YYYY');
     const data = {
       title: title,
       subject: navigation.getParam('TitleSubject'),
@@ -54,6 +63,10 @@ const WorkspaceForm = ({navigation}) => {
       latitude: navigation.getParam('lat'),
       longitude: navigation.getParam('long'),
       description: substringTillStreet,
+      numpeople: 1,
+      startDate: formattedDate,
+      endTime: end,
+      endDate: endDate,
     };
     firestore()
       .collection('sessions')
@@ -61,6 +74,24 @@ const WorkspaceForm = ({navigation}) => {
       .then(() => {
         console.log('added details');
       });
+  };
+
+  const validateInput = () => {
+    if (
+      navigation.getParam('TitleSubject') === undefined ||
+      navigation.getParam('Number') === undefined ||
+      navigation.getParam('lat') === undefined ||
+      navigation.getParam('long') === undefined ||
+      navigation.getParam('descrip') === undefined ||
+      title === '' ||
+      description === '' ||
+      duration === '' ||
+      convertedTime === ''
+    ) {
+      alert('Please fill all the fields');
+    } else {
+      addUserDetails();
+    }
   };
 
   return (
@@ -97,24 +128,7 @@ const WorkspaceForm = ({navigation}) => {
           setClock(false);
         }}
       />
-      <TouchableOpacity
-        onPress={() => {
-          if (
-            navigation.getParam('TitleSubject') === undefined ||
-            navigation.getParam('Number') === undefined ||
-            navigation.getParam('lat') === undefined ||
-            navigation.getParam('long') === undefined ||
-            navigation.getParam('descrip') === undefined ||
-            title === '' ||
-            description === '' ||
-            duration === '' ||
-            convertedTime === ''
-          ) {
-            alert('Please fill all the fields');
-          } else {
-            addUserDetails();
-          }
-        }}>
+      <TouchableOpacity onPress={() => validateInput()}>
         <Text>Submit information</Text>
       </TouchableOpacity>
       <TextInput
