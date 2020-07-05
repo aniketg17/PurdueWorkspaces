@@ -56,6 +56,9 @@ const WorkspaceForm = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+      <Text>
+        {navigation.getParam('lat')} {navigation.getParam('long')}
+      </Text>
       <TouchableOpacity onPress={() => navigation.navigate('Map')}>
         <Text>Select Location</Text>
       </TouchableOpacity>

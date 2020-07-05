@@ -5,8 +5,7 @@ import {StyleSheet, Text, Dimensions, View} from 'react-native';
 
 const KEY = 'AIzaSyBEk2cllJeg-VgSQbYMPmHHfceBtJ6Aa0o';
 
-const GooglePlacesInput = () => {
-  const [latitude, setLatitude] = useState('');
+const GooglePlacesInput = ({navigation}) => {
   return (
     <GooglePlacesAutocomplete
       placeholder="Search"
@@ -21,6 +20,11 @@ const GooglePlacesInput = () => {
         // 'details' is provided when fetchDetails = true
         console.log(details.geometry.location.lat);
         console.log(details.geometry.location.lng);
+        const location = {
+          lat: details.geometry.location.lat,
+          long: details.geometry.location.lng,
+        };
+        navigation.navigate('Workspace', location);
       }}
       getDefaultValue={() => ''}
       query={{
