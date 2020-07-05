@@ -2,10 +2,12 @@ import React, {useState} from 'react';
 import MapView from 'react-native-maps';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {StyleSheet, Text, Dimensions, View} from 'react-native';
+import {v4 as uuid} from 'uuid';
 
 const KEY = 'AIzaSyBEk2cllJeg-VgSQbYMPmHHfceBtJ6Aa0o';
 
 const GooglePlacesInput = ({navigation}) => {
+  const [id, setID] = useState(uuid());
   return (
     <GooglePlacesAutocomplete
       placeholder="Search"
@@ -29,6 +31,7 @@ const GooglePlacesInput = ({navigation}) => {
       getDefaultValue={() => ''}
       query={{
         // available options: https://developers.google.com/places/web-service/autocomplete
+        sessiontoken: id,
         location: '40.4237, -86.9212',
         radius: '5000',
         key: KEY,
