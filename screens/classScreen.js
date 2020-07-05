@@ -81,10 +81,10 @@ const ClassScreen = ({navigation}) => {
                   ' ' +
                   dataTransfer.Number,
               );
-              if (navigation.getParam('route') == 'new') {
-                navigation.navigate('Workspace', dataTransfer);
+              if (navigation.getParam('route') === 'new') {
+                navigation.navigate('WorkspaceForm', dataTransfer);
               } else {
-                console.log('More work to be done!');
+                navigation.navigate('WorkspaceLoader', dataTransfer);
               }
             }}>
             <Text style={styles.text}>
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   item: {
     marginTop: 24,
     padding: 30,
-    backgroundColor: '#f0fff0',
+    backgroundColor: '#ffe4b5',
     fontSize: 24,
     borderRadius: 50,
   },
