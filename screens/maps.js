@@ -22,7 +22,9 @@ const GooglePlacesInput = ({navigation}) => {
         // 'details' is provided when fetchDetails = true
         console.log(details.geometry.location.lat);
         console.log(details.geometry.location.lng);
+        console.log(data.description);
         const location = {
+          descrip: data.description,
           lat: details.geometry.location.lat,
           long: details.geometry.location.lng,
         };
@@ -31,8 +33,8 @@ const GooglePlacesInput = ({navigation}) => {
       getDefaultValue={() => ''}
       query={{
         // available options: https://developers.google.com/places/web-service/autocomplete
-        sessiontoken: id,
-        location: '40.4237, -86.9212',
+        sessiontoken: id, // to prevent billing for each SKU
+        location: '40.4237, -86.9212', // latlong of purdue university, west lafayette
         radius: '5000',
         key: KEY,
         language: 'en', // language of the results
@@ -64,7 +66,7 @@ const GooglePlacesInput = ({navigation}) => {
       }
       GooglePlacesDetailsQuery={{
         // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
-        fields: 'geometry', // to get the latlong of selected location
+        fields: 'geometry,name', // to get the latlong of selected location
       }}
       filterReverseGeocodingByTypes={[
         // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities

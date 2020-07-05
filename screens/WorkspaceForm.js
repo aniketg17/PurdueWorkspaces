@@ -37,15 +37,23 @@ const WorkspaceForm = ({navigation}) => {
   };
 
   const addUserDetails = () => {
+    const locationDescrip = navigation.getParam('descrip');
+    const index = locationDescrip.indexOf(
+      ',',
+      locationDescrip.indexOf(',') + 1,
+    );
+    const substringTillStreet = locationDescrip.slice(0, index);
+
     const data = {
       title: title,
       subject: navigation.getParam('TitleSubject'),
       class: navigation.getParam('Number'),
-      description: description,
+      workspaceDescription: description,
       duration: duration,
       startTime: convertedTime,
       latitude: navigation.getParam('lat'),
       longitude: navigation.getParam('long'),
+      description: substringTillStreet,
     };
     firestore()
       .collection('sessions')
@@ -57,9 +65,7 @@ const WorkspaceForm = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Text>
-        {navigation.getParam('lat')} {navigation.getParam('long')}
-      </Text>
+      <Text>{navigation.getParam('descrip')}</Text>
       <TouchableOpacity onPress={() => navigation.navigate('Map')}>
         <Text>Select Location</Text>
       </TouchableOpacity>
@@ -93,8 +99,21 @@ const WorkspaceForm = ({navigation}) => {
       />
       <TouchableOpacity
         onPress={() => {
-          console.log(navigation.getParam('lat'));
-          addUserDetails();
+          if (
+            navigation.getParam('TitleSubject') === undefined ||
+            navigation.getParam('Number') === undefined ||
+            navigation.getParam('lat') === undefined ||
+            navigation.getParam('long') === undefined ||
+            navigation.getParam('descrip') === undefined ||
+            title === '' ||
+            description === '' ||
+            duration === '' ||
+            convertedTime === ''
+          ) {
+            alert('Please fill all the fields');
+          } else {
+            addUserDetails();
+          }
         }}>
         <Text>Submit information</Text>
       </TouchableOpacity>
