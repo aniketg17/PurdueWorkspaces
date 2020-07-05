@@ -14,9 +14,10 @@ import {sub} from 'react-native-reanimated';
 const ClassScreen = ({navigation}) => {
   const [classes, setClasses] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const itemData = navigation.getParam('item'); // item object passed in from previous screen
   const SUBJECT_QUERY_URL =
     'http://api.purdue.io/odata/Courses?%24filter=Subject/Abbreviation%20eq%20%27' +
-    navigation.getParam('Abbreviation') +
+    itemData.Abbreviation +
     '%27&%24orderby=Number%20asc';
   const [query, setQuery] = useState('');
   const [filteredData, setFilteredData] = useState([]);
@@ -49,7 +50,7 @@ const ClassScreen = ({navigation}) => {
     const formattedQuery = text.toLowerCase();
     const finder = classes.filter(item => {
       const formattedItem =
-        navigation.getParam('Abbreviation').toLowerCase() +
+        itemData.Abbreviation.toLowerCase() +
         item.Title.toString().toLowerCase() +
         item.Number.toString().toLowerCase();
       return formattedItem.includes(formattedQuery);
@@ -68,13 +69,14 @@ const ClassScreen = ({navigation}) => {
           <TouchableOpacity
             style={styles.item}
             onPress={() => {
-              const subTitle = navigation.getParam('Abbreviation');
+              const subTitle = itemData.Abbreviation;
               const dataTransfer = {
                 TitleSubject: subTitle,
                 Number: item.Number,
+                Route: navigation.getParam('route'),
               };
               console.log(
-                navigation.getParam('Abbreviation') +
+                itemData.Abbreviation.toString() +
                   ' ' +
                   dataTransfer.TitleSubject +
                   ' ' +
@@ -83,7 +85,7 @@ const ClassScreen = ({navigation}) => {
               navigation.navigate('Workspace', dataTransfer);
             }}>
             <Text style={styles.text}>
-              {navigation.getParam('Abbreviation')} {item.Number} ({item.Title})
+              {itemData.Abbreviation.toString()} {item.Number} ({item.Title})
             </Text>
           </TouchableOpacity>
         )}

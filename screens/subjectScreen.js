@@ -67,7 +67,13 @@ const SubjectScreen = ({navigation}) => {
           <TouchableOpacity
             style={styles.item}
             onPress={() => {
-              navigation.navigate('Class', item);
+              const routeData = navigation.getParam('route');
+              const transferData = {
+                item: item,
+                route: routeData,
+              };
+              console.log(transferData.route);
+              navigation.navigate('Class', transferData);
             }}>
             <Text style={styles.text}>
               {item.Name} ({item.Abbreviation})
