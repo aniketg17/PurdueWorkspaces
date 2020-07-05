@@ -6,10 +6,7 @@ import {StyleSheet, Text, Dimensions, View} from 'react-native';
 const KEY = 'AIzaSyBEk2cllJeg-VgSQbYMPmHHfceBtJ6Aa0o';
 
 const GooglePlacesInput = () => {
-  const locationChosen = useState({
-    latitude: '',
-    longitude: '',
-  });
+  const [latitude, setLatitude] = useState('');
   return (
     <GooglePlacesAutocomplete
       placeholder="Search"
@@ -22,18 +19,19 @@ const GooglePlacesInput = () => {
       renderDescription={row => row.description} // custom description render
       onPress={(data, details = null) => {
         // 'details' is provided when fetchDetails = true
-        console.log(data, details);
-        details.geometry.location;
+        console.log(details.geometry.location.lat);
+        console.log(details.geometry.location.lng);
       }}
       getDefaultValue={() => ''}
       query={{
         // available options: https://developers.google.com/places/web-service/autocomplete
         location: '40.4237, -86.9212',
-        radius: '10000',
-        key: {KEY},
+        radius: '5000',
+        key: KEY,
         language: 'en', // language of the results
-        strictBounds: true,
+        strictbounds: true,
         components: 'country:us',
+        types: 'establishment', // to restrict location rendering down to establishments within cities
       }}
       styles={{
         textInputContainer: {
@@ -52,19 +50,20 @@ const GooglePlacesInput = () => {
           // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
         }
       }
-      GooglePlacesSearchQuery={{
-        // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
-        rankby: 'distance',
-      }}
+      GooglePlacesSearchQuery={
+        {
+          // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+        }
+      }
       GooglePlacesDetailsQuery={{
         // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
-        fields: 'formatted_address',
+        fields: 'geometry', // to get the latlong of selected location
       }}
       filterReverseGeocodingByTypes={[
         // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
         // available options : https://developers.google.com/maps/documentation/geocoding/intro#Types
-        'locality',
-        'administrative_area_level_3',
+        'street_address',
+        'premise',
       ]}
       debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
     />
