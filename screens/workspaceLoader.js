@@ -9,11 +9,22 @@ import {
 import firestore from '@react-native-firebase/firestore';
 
 const workspaceLoader = ({navigation}) => {
+  const subject = navigation.getParam('TitleSubject');
+  const classSelected = navigation.getParam('Number');
+
+  var classes = firestore()
+    .collection('sessions')
+    .where('class', '==', classSelected.toString())
+    .get()
+    .then(querySnapshot => {
+      querySnapshot.forEach(documentSnapshot => {
+        console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+      });
+    });
+
   return (
     <View>
-      <Text>
-        {navigation.getParam('TitleSubject')} {navigation.getParam('Number')}
-      </Text>
+      <Text>{classes.toString()}</Text>
     </View>
   );
 };

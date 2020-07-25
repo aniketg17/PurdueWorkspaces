@@ -23,7 +23,6 @@ const WorkspaceForm = ({navigation}) => {
   const [convertedTime, setConvertedTime] = useState('');
   const [originalTime, setOriginalTime] = useState('');
   const [formattedDate, setFormattedDate] = useState('');
-  const [endTime, setEndTime] = useState('');
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
