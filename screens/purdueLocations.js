@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import MapView from 'react-native-maps';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {StyleSheet, Text, Dimensions, View} from 'react-native';
 import {v4 as uuid} from 'uuid';
@@ -28,7 +27,7 @@ const GooglePlacesInput = ({navigation}) => {
           lat: details.geometry.location.lat,
           long: details.geometry.location.lng,
         };
-        navigation.navigate('Workspace', location);
+        navigation.navigate('WorkspaceForm', location);
       }}
       getDefaultValue={() => ''}
       query={{
