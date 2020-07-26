@@ -19,6 +19,13 @@ const WorkspaceLoader = ({navigation}) => {
     if (!isLoaded) {
       return <Loader />;
     } else {
+      if (returnedSubjects.length == 0) {
+        return (
+          <View>
+            <Text style={styles.unavailableText}>Nothing here!</Text>
+          </View>
+        );
+      }
       return null;
     }
   };
@@ -62,16 +69,17 @@ const WorkspaceLoader = ({navigation}) => {
               };
             }}>
             <Text style={styles.text}>
-              Title: {item.data().title.toString()}
+              <Text style={styles.label}>Title: </Text>
+              {item.data().title.toString()}
               {'\n'}
+              <Text style={styles.label}>Location: </Text>
+              {item.data().location.toString()}
               {'\n'}
-              Location: {item.data().location.toString()}
+              <Text style={styles.label}>Start Time: </Text>
+              {item.data().startTime.toString()}
               {'\n'}
-              {'\n'}
-              Start Time: {item.data().startTime.toString()}
-              {'\n'}
-              {'\n'}
-              Duration: {item.data().duration.toString()}
+              <Text style={styles.label}>Duration: </Text>
+              {item.data().duration.toString()}
             </Text>
           </TouchableOpacity>
         )}
@@ -98,6 +106,18 @@ const styles = StyleSheet.create({
     fontFamily: 'cochin',
     fontWeight: 'normal',
     fontSize: 24,
+  },
+  label: {
+    fontFamily: 'cochin',
+    fontWeight: '900',
+    fontSize: 24,
+    fontStyle: 'normal',
+  },
+  unavailableText: {
+    fontStyle: 'italic',
+    fontSize: 24,
+    paddingTop: 50,
+    paddingHorizontal: 100,
   },
 });
 
