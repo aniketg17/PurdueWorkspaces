@@ -61,7 +61,7 @@ const WorkspaceForm = ({navigation}) => {
       startTime: convertedTime,
       latitude: navigation.getParam('lat'),
       longitude: navigation.getParam('long'),
-      description: substringTillStreet,
+      location: substringTillStreet,
       numpeople: 1,
       startDate: formattedDate,
       endTime: end,
@@ -90,6 +90,7 @@ const WorkspaceForm = ({navigation}) => {
       alert('Please fill all the fields');
     } else {
       addUserDetails();
+      navigation.navigate('Class');
     }
   };
 

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import SearchBar from '../components/searchBar';
 import 'react-native-gesture-handler';
-import {sub} from 'react-native-reanimated';
+import Loader from '../components/loadingCircle';
 
 const ClassScreen = ({navigation}) => {
   const [classes, setClasses] = useState([]);
@@ -35,11 +35,7 @@ const ClassScreen = ({navigation}) => {
 
   const renderLoader = () => {
     if (!loaded) {
-      return (
-        <View style={styles.loader}>
-          <ActivityIndicator animating size="large" />
-        </View>
-      );
+      return <Loader />;
     } else {
       return null;
     }
@@ -111,10 +107,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffe4b5',
     fontSize: 24,
     borderRadius: 50,
-  },
-  loader: {
-    paddingVertical: 20,
-    borderColor: '#CED0CE',
   },
   text: {
     fontFamily: 'cochin',
