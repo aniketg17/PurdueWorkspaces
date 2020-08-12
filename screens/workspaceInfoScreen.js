@@ -1,19 +1,25 @@
 import React, {useState, useEffect} from 'react';
+
 import {
+  Container,
+  Content,
   Text,
-  View,
-  StyleSheet,
-  FlatList,
-  TextInput,
-  TouchableOpacity,
-  ActivityIndicator,
-} from 'react-native';
+  Header,
+  Badge,
+  Icon,
+  Button,
+} from 'native-base';
+
+import {Col, Row, Grid} from 'react-native-easy-grid';
 
 const InfoScreen = () => {
   return (
-    <View>
-      <Text> Hello</Text>
-    </View>
+    <Container>
+      <Header />
+      <Content>
+        <Icon type="FontAwesome" name="twitter" />
+      </Content>
+    </Container>
   );
 };
 
