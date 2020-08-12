@@ -70,13 +70,6 @@ const ClassScreen = ({navigation}) => {
                 TitleSubject: subTitle,
                 Number: item.Number,
               };
-              console.log(
-                itemData.Abbreviation.toString() +
-                  ' ' +
-                  dataTransfer.TitleSubject +
-                  ' ' +
-                  dataTransfer.Number,
-              );
               if (navigation.getParam('route') === 'new') {
                 navigation.navigate('WorkspaceForm', dataTransfer);
               } else {
@@ -98,7 +91,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 50,
-    backgroundColor: '#fff',
+    backgroundColor: '#f0f8ff',
     paddingHorizontal: 20,
   },
   item: {

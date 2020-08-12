@@ -19,9 +19,6 @@ const GooglePlacesInput = ({navigation}) => {
       renderDescription={row => row.description} // custom description render
       onPress={(data, details = null) => {
         // 'details' is provided when fetchDetails = true
-        console.log(details.geometry.location.lat);
-        console.log(details.geometry.location.lng);
-        console.log(data.description);
         const location = {
           descrip: data.description,
           lat: details.geometry.location.lat,

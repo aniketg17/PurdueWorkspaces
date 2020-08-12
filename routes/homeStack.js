@@ -6,6 +6,7 @@ import WorkspaceForm from '../screens/workspaceForm';
 import Locations from '../screens/purdueLocations';
 import Selection from '../screens/selectionScreen';
 import WorkspaceLoader from '../screens/workspaceLoader';
+import InfoScreen from '../screens/workspaceInfoScreen';
 
 const screens = {
   Selection: {
@@ -25,6 +26,9 @@ const screens = {
   },
   WorkspaceLoader: {
     screen: WorkspaceLoader,
+  },
+  InfoScreen: {
+    screen: InfoScreen,
   },
 };
 

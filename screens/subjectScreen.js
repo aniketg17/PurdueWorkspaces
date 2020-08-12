@@ -2,14 +2,12 @@
 import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
-  ActivityIndicator,
   FlatList,
   View,
   Text,
   TouchableOpacity,
 } from 'react-native';
 import 'react-native-gesture-handler';
-import {TextInput} from 'react-native-gesture-handler';
 import SearchBar from '../components/searchBar';
 import LoadingCircle from '../components/loadingCircle';
 
@@ -35,9 +33,6 @@ const SubjectScreen = ({navigation}) => {
     if (loading) {
       return (
         <LoadingCircle />
-        /*<View style={styles.loader}>
-          <ActivityIndicator animating size="large" />
-        </View>*/
       );
     } else {
       return null;
@@ -92,7 +87,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 50,
-    backgroundColor: '#fff',
+    backgroundColor: '#f0f8ff',
     paddingHorizontal: 20,
   },
   item: {

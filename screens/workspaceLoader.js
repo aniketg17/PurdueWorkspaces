@@ -19,10 +19,21 @@ const WorkspaceLoader = ({navigation}) => {
     if (!isLoaded) {
       return <Loader />;
     } else {
-      if (returnedSubjects.length == 0) {
+      if (returnedSubjects.length === 0) {
         return (
           <View>
             <Text style={styles.unavailableText}>Nothing here!</Text>
+            <TouchableOpacity
+              //style={styles.item}
+              onPress={() => {
+                const dataTransfer = {
+                  TitleSubject: navigation.getParam('TitleSubject'),
+                  Number: navigation.getParam('Number'),
+                };
+                navigation.navigate('WorkspaceForm', dataTransfer);
+              }}>
+              <Text style={styles.redirectButton}>Want to create one?</Text>
+            </TouchableOpacity>
           </View>
         );
       }
@@ -62,11 +73,7 @@ const WorkspaceLoader = ({navigation}) => {
           <TouchableOpacity
             style={styles.item}
             onPress={() => {
-              //const subTitle = itemData.Abbreviation;
-              const dataTransfer = {
-                //TitleSubject: subTitle,
-                //Number: item.Number,
-              };
+              navigation.navigate('InfoScreen', item.data());
             }}>
             <Text style={styles.text}>
               <Text style={styles.label}>Title: </Text>
@@ -118,6 +125,15 @@ const styles = StyleSheet.create({
     fontSize: 24,
     paddingTop: 50,
     paddingHorizontal: 100,
+    width: 1000,
+  },
+  redirectButton: {
+    fontStyle: 'italic',
+    fontSize: 24,
+    paddingTop: 50,
+    paddingHorizontal: 100,
+    width: 1000,
+    color: '#1e90ff',
   },
 });
 
