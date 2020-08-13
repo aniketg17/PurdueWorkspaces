@@ -13,35 +13,40 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 
 //import {Col, Row, Grid} from 'react-native-easy-grid';
 
-const InfoScreen = () => {
+const InfoScreen = ({navigation}) => {
   return (
     <View style={styles.mainContainer}>
       <Container style={styles.upperContainer}>
         <Content padder>
           <Card style={styles.card}>
             <CardItem header bordered>
-              <Text>NativeBase</Text>
+              <Text>{navigation.getParam('title').toString()}</Text>
             </CardItem>
             <CardItem bordered>
               <Body>
                 <Text>
-                  NativeBase is a free and open source framework that enable
-                  developers to build high-quality mobile apps using React
-                  Native iOS and Android apps with a fusion of ES6. NativeBase
-                  is a free and open source framework that enable developers to
-                  build high-quality mobile apps using React Native iOS and
-                  Android apps with a fusion of ES6. NativeBase is a free and
-                  open source framework that enable developers to build
-                  high-quality mobile apps using React Native iOS and Android
-                  apps with a fusion of ES6. NativeBase is a free and open
-                  source framework that enable developers to build high-quality
-                  mobile apps using React Native iOS and Android apps with a
-                  fusion of ES6.
+                  <Text style={styles.boldWord}>Class: </Text>
+                  {navigation.getParam('subject') +
+                    ' ' +
+                    navigation.getParam('class') +
+                    '\n\n'}
+                  <Text style={styles.boldWord}>Description: </Text>
+                  {navigation.getParam('workspaceDescription') + '\n\n'}
+                  <Text style={styles.boldWord}>Location: </Text>
+                  {navigation.getParam('location') + '\n\n'}
+                  <Text style={styles.boldWord}>Start time: </Text>
+                  {navigation.getParam('startTime') + '\n\n'}
+                  <Text style={styles.boldWord}>End time: </Text>
+                  {navigation.getParam('endTime') + '\n\n'}
+                  <Text style={styles.boldWord}>
+                    Number of attendees currently:{' '}
+                  </Text>
+                  {navigation.getParam('numpeople')}
                 </Text>
               </Body>
             </CardItem>
             <CardItem footer bordered>
-              <Text>GeekyAnts</Text>
+              <Text>Click on the button below to join</Text>
             </CardItem>
           </Card>
         </Content>
@@ -62,6 +67,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  boldWord: {
+    fontFamily: 'cochin',
+    fontWeight: '900',
+    fontSize: 24,
+    fontStyle: 'normal',
+  },
   miniContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -75,7 +86,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   upperContainer: {
-    flex: 2,
+    flex: 4,
     backgroundColor: '#f0f8ff', // #feffcb
     alignItems: 'center',
     justifyContent: 'center',

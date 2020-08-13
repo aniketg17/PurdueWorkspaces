@@ -30,7 +30,7 @@ const WorkspaceLoader = ({navigation}) => {
                   TitleSubject: navigation.getParam('TitleSubject'),
                   Number: navigation.getParam('Number'),
                 };
-                navigation.navigate('WorkspaceForm', dataTransfer);
+                navigation.navigate('Create a new workspace', dataTransfer);
               }}>
               <Text style={styles.redirectButton}>Want to create one?</Text>
             </TouchableOpacity>

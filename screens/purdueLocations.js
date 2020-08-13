@@ -24,7 +24,7 @@ const GooglePlacesInput = ({navigation}) => {
           lat: details.geometry.location.lat,
           long: details.geometry.location.lng,
         };
-        navigation.navigate('WorkspaceForm', location);
+        navigation.navigate('Create a new workspace', location);
       }}
       getDefaultValue={() => ''}
       query={{
