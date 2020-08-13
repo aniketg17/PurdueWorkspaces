@@ -73,7 +73,18 @@ const WorkspaceLoader = ({navigation}) => {
           <TouchableOpacity
             style={styles.item}
             onPress={() => {
-              navigation.navigate('Workspace info', item.data());
+              const dataTransfer = {
+                title: item.data().title.toString(),
+                location: item.data().location.toString(),
+                description: item.data().workspaceDescription.toString(),
+                startTime: item.data().startTime,
+                endTime: item.data().endTime,
+                numPeople: item.data().numpeople,
+                class: item.data().class,
+                subject: item.data().subject,
+                id: item.id,
+              };
+              navigation.navigate('Workspace info', dataTransfer);
             }}>
             <Text style={styles.text}>
               <Text style={styles.label}>Title: </Text>

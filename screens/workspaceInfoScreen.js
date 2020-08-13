@@ -10,10 +10,45 @@ import {
   Icon,
 } from 'native-base';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-
-//import {Col, Row, Grid} from 'react-native-easy-grid';
+import firestore from '@react-native-firebase/firestore';
 
 const InfoScreen = ({navigation}) => {
+  var numPeople = navigation.getParam('numPeople');
+  const id = navigation.getParam('id');
+  const [peopleCountDisplay, setCount] = useState('-');
+  const [updated, setFlag] = useState(false);
+
+  useEffect(() => {
+    firestore()
+      .collection('sessions')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(documentSnapshot => {
+          if (documentSnapshot.id === id) {
+            setCount(documentSnapshot.data().numpeople);
+          }
+        });
+      });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // passing an empty array to ensure useeffect only runs once
+
+  const updateDatabase = () => {
+    firestore()
+      .collection('sessions')
+      .doc(id)
+      .update({
+        numpeople: numPeople + 1,
+      })
+      .then(() => {
+        console.log(id + ' User updated!');
+        if (!updated && numPeople == peopleCountDisplay) {
+          setCount(peopleCountDisplay + 1);
+          numPeople += 1;
+        }
+        setFlag(true);
+      });
+  };
+
   return (
     <View style={styles.mainContainer}>
       <Container style={styles.upperContainer}>
@@ -31,7 +66,7 @@ const InfoScreen = ({navigation}) => {
                     navigation.getParam('class') +
                     '\n\n'}
                   <Text style={styles.boldWord}>Description: </Text>
-                  {navigation.getParam('workspaceDescription') + '\n\n'}
+                  {navigation.getParam('description') + '\n\n'}
                   <Text style={styles.boldWord}>Location: </Text>
                   {navigation.getParam('location') + '\n\n'}
                   <Text style={styles.boldWord}>Start time: </Text>
@@ -41,7 +76,7 @@ const InfoScreen = ({navigation}) => {
                   <Text style={styles.boldWord}>
                     Number of attendees currently:{' '}
                   </Text>
-                  {navigation.getParam('numpeople')}
+                  {peopleCountDisplay}
                 </Text>
               </Body>
             </CardItem>
@@ -53,8 +88,10 @@ const InfoScreen = ({navigation}) => {
       </Container>
       <View style={styles.miniContainer}>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button}>
-            <Icon type="FontAwesome" name="check-circle" />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => updateDatabase()}>
+            <Icon type="FontAwesome" name="check" />
           </TouchableOpacity>
         </View>
       </View>
@@ -86,7 +123,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   upperContainer: {
-    flex: 4,
+    flex: 3,
     backgroundColor: '#f0f8ff', // #feffcb
     alignItems: 'center',
     justifyContent: 'center',
