@@ -9,6 +9,7 @@ import {
   Icon,
   Button,
 } from 'native-base';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 //import {Col, Row, Grid} from 'react-native-easy-grid';
 
@@ -19,10 +20,10 @@ const InfoScreen = () => {
         <Text style={styles.text}>Item 1</Text>
       </View>
       <View style={styles.minicontainer}>
-        <View style={styles.button2}>
-          <Button rounded transparent success>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.Button}>
             <Icon type="FontAwesome" name="check-circle" />
-          </Button>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -37,6 +38,7 @@ const styles = StyleSheet.create({
   minicontainer: {
     flex: 1,
     flexDirection: 'row',
+    backgroundColor: '#f0f8ff',
   },
   text: {
     fontWeight: 'bold',
@@ -44,15 +46,23 @@ const styles = StyleSheet.create({
   },
   item1: {
     flex: 3,
-    backgroundColor: '#feffcb',
+    backgroundColor: '#feffcb', // #f0f8ff
     alignItems: 'center',
     justifyContent: 'center',
   },
-  button2: {
+  buttonContainer: {
     justifyContent: 'center',
     alignContent: 'center',
-    paddingHorizontal: 180,
-    width: 1000,
+    paddingHorizontal: 160,
+  },
+  Button: {
+    backgroundColor: '#1e90ff',
+    height: 100,
+    justifyContent: 'center',
+    alignContent: 'center',
+    width: 100,
+    paddingHorizontal: 37,
+    borderRadius: 60,
   },
 });
 
