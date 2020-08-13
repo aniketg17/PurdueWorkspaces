@@ -73,7 +73,7 @@ const WorkspaceLoader = ({navigation}) => {
           <TouchableOpacity
             style={styles.item}
             onPress={() => {
-              navigation.navigate('InfoScreen', item.data());
+              navigation.navigate('Workspace info', item.data());
             }}>
             <Text style={styles.text}>
               <Text style={styles.label}>Title: </Text>

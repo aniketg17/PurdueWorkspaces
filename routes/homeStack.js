@@ -1,6 +1,6 @@
 import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
-import Subject from '../screens/subjectScreen';
+import Subjects from '../screens/subjectScreen';
 import Class from '../screens/classScreen';
 import WorkspaceForm from '../screens/workspaceForm';
 import Locations from '../screens/purdueLocations';
@@ -9,25 +9,25 @@ import WorkspaceLoader from '../screens/workspaceLoader';
 import InfoScreen from '../screens/workspaceInfoScreen';
 
 const screens = {
-  Selection: {
+  'Select an option': {
     screen: Selection,
   },
-  Subject: {
-    screen: Subject,
+  'Select a subject': {
+    screen: Subjects,
   },
-  Class: {
+  'Select a class': {
     screen: Class,
   },
-  WorkspaceForm: {
+  'Create a new workspace': {
     screen: WorkspaceForm,
   },
-  Locations: {
+  'Select a location': {
     screen: Locations,
   },
-  WorkspaceLoader: {
+  'Select a workspace': {
     screen: WorkspaceLoader,
   },
-  InfoScreen: {
+  'Workspace info': {
     screen: InfoScreen,
   },
 };

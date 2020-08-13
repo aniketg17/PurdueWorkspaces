@@ -90,14 +90,15 @@ const WorkspaceForm = ({navigation}) => {
       alert('Please fill all the fields');
     } else {
       addUserDetails();
-      navigation.navigate('Class');
+      navigation.navigate('Select a class');
     }
   };
 
   return (
     <View style={styles.container}>
       <Text>{navigation.getParam('descrip')}</Text>
-      <TouchableOpacity onPress={() => navigation.navigate('Locations')}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Select a location')}>
         <Text>Select Location</Text>
       </TouchableOpacity>
       <Text style={styles.formLabel}>

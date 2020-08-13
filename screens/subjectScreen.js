@@ -1,12 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, {useState, useEffect} from 'react';
-import {
-  StyleSheet,
-  FlatList,
-  View,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, FlatList, View, Text, TouchableOpacity} from 'react-native';
 import 'react-native-gesture-handler';
 import SearchBar from '../components/searchBar';
 import LoadingCircle from '../components/loadingCircle';
@@ -31,9 +25,7 @@ const SubjectScreen = ({navigation}) => {
 
   const renderLoader = () => {
     if (loading) {
-      return (
-        <LoadingCircle />
-      );
+      return <LoadingCircle />;
     } else {
       return null;
     }
@@ -70,7 +62,7 @@ const SubjectScreen = ({navigation}) => {
                 route: routeData,
               };
               console.log(transferData.route);
-              navigation.navigate('Class', transferData);
+              navigation.navigate('Select a class', transferData);
             }}>
             <Text style={styles.text}>
               {item.Name} ({item.Abbreviation})

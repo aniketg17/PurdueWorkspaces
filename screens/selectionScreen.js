@@ -10,7 +10,7 @@ const selections = ({navigation}) => {
           const selectedRoute = {
             route: 'new',
           };
-          navigation.navigate('Subject', selectedRoute);
+          navigation.navigate('Select a subject', selectedRoute);
         }}>
         <Text style={styles.text}> Create a New Workspace</Text>
       </TouchableOpacity>
@@ -20,7 +20,7 @@ const selections = ({navigation}) => {
           const selectedRoute = {
             route: 'existing',
           };
-          navigation.navigate('Subject', selectedRoute);
+          navigation.navigate('Select a subject', selectedRoute);
         }}>
         <Text style={styles.text}>Join an Existing Workspace</Text>
       </TouchableOpacity>

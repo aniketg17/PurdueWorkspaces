@@ -71,9 +71,9 @@ const ClassScreen = ({navigation}) => {
                 Number: item.Number,
               };
               if (navigation.getParam('route') === 'new') {
-                navigation.navigate('WorkspaceForm', dataTransfer);
+                navigation.navigate('Create a new workspace', dataTransfer);
               } else {
-                navigation.navigate('WorkspaceLoader', dataTransfer);
+                navigation.navigate('Select a workspace', dataTransfer);
               }
             }}>
             <Text style={styles.text}>
