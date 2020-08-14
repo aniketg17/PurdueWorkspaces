@@ -98,7 +98,7 @@ const WorkspaceForm = ({navigation}) => {
       alert('Please fill all the fields');
     } else {
       addUserDetails();
-      navigation.navigate('Select a course');
+      navigation.navigate('Select an option');
     }
   };
 
@@ -199,7 +199,9 @@ const WorkspaceForm = ({navigation}) => {
             <View style={styles.submitContainer}>
               <TouchableOpacity
                 style={styles.submit}
-                onPress={() => validateInput()}>
+                onPress={() => {
+                  validateInput();
+                }}>
                 <Icon type="FontAwesome" name="check" />
               </TouchableOpacity>
             </View>

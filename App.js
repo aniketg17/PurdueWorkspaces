@@ -13,8 +13,13 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 import Navigator from './routes/homeStack';
+import {Root} from 'native-base';
 
 const App = () => {
-  return <Navigator />;
+  return (
+    <Root>
+      <Navigator />
+    </Root>
+  );
 };
 export default App;
