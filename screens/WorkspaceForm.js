@@ -107,30 +107,42 @@ const WorkspaceForm = ({navigation}) => {
     }
   };
 
+  const hidePickers = () => {
+    setClock(false);
+    setShowDuration(false);
+  };
+
   return (
     <Container style={styles.container}>
       <Content padder>
         <Form>
-          <Item success>
+          <Item>
             {/*error */}
-            <Input placeholder="Enter title for workspace" />
-            <Icon name="checkmark-circle" />
-            <Icon name="close-circle" />
+            <Input
+              onChangeText={text => setTitle(text)}
+              onFocus={() => hidePickers()}
+              placeholder="Enter title for workspace"
+            />
+            <Icon type="FontAwesome5" name="heading" />
           </Item>
           <Text>{'\n'}</Text>
           <Form>
             <Textarea
+              onFocus={() => hidePickers()}
               rowSpan={7}
               bordered
               placeholder="Enter description for workspace"
             />
           </Form>
           <Text>{'\n'}</Text>
-          <View style={styles.miniContainer}>
-            <View style={styles.buttonContainer}>
+          <View style={styles.bottomContainer}>
+            <View style={styles.buttonsContainer}>
               <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate('Select a location')}>
+                onPress={() => {
+                  navigation.navigate('Select a location');
+                  hidePickers();
+                }}>
                 <Text style={styles.locationText}>
                   {navigation.getParam('descrip')}
                 </Text>
@@ -159,6 +171,7 @@ const WorkspaceForm = ({navigation}) => {
                 placeholder="Choose duration for session..."
                 value={duration}
                 style={styles.inputStyle}
+                on
                 onFocus={() => {
                   setClock(false);
                   setShowDuration(true);
@@ -167,7 +180,7 @@ const WorkspaceForm = ({navigation}) => {
               {showDuration && (
                 <Picker
                   selectedValue={duration}
-                  style={{height: 30, width: 300}}
+                  style={styles.spinner}
                   onValueChange={minutes => {
                     if (minutes !== '---') {
                       setDuration(minutes);
@@ -183,6 +196,13 @@ const WorkspaceForm = ({navigation}) => {
                 </Picker>
               )}
             </View>
+            <View style={styles.submitContainer}>
+              <TouchableOpacity
+                style={styles.submit}
+                onPress={() => validateInput()}>
+                <Icon type="FontAwesome" name="check" />
+              </TouchableOpacity>
+            </View>
           </View>
         </Form>
       </Content>
@@ -197,17 +217,31 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
+  submitContainer: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    paddingHorizontal: 150,
+    paddingTop: 100,
+  },
+  submit: {
+    backgroundColor: '#1e90ff',
+    height: 100,
+    justifyContent: 'center',
+    alignContent: 'center',
+    width: 100,
+    paddingHorizontal: 37,
+    borderRadius: 60,
+  },
   formLabel: {
     fontSize: 20,
     color: '#000000',
     marginTop: 0,
   },
-  miniContainer: {
+  bottomContainer: {
     flex: 1,
     backgroundColor: '#f0f8ff',
   },
-  buttonContainer: {
+  buttonsContainer: {
     justifyContent: 'center',
     alignContent: 'center',
     paddingHorizontal: 45,
@@ -219,17 +253,21 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#1e90ff',
-    height: 50,
+    height: 'auto',
+    minHeight: 50,
     justifyContent: 'center',
     alignContent: 'center',
-    width: 300,
+    width: 'auto',
+    minWidth: 300,
     paddingHorizontal: 37,
     borderRadius: 40,
   },
   inputStyle: {
     marginTop: 20,
-    width: 300,
-    height: 50,
+    width: 'auto',
+    minWidth: 100,
+    height: 'auto',
+    minHeight: 50,
     paddingHorizontal: 10,
     borderRadius: 50,
     borderWidth: 0.5,
