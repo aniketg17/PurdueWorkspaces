@@ -53,12 +53,7 @@ const WorkspaceForm = ({navigation}) => {
   };
 
   const addUserDetails = () => {
-    const locationDescrip = navigation.getParam('descrip');
-    const index = locationDescrip.indexOf(
-      ',',
-      locationDescrip.indexOf(',') + 1,
-    );
-    const substringTillStreet = locationDescrip.slice(0, index);
+    const locationDescrip = navigation.getParam('description');
     var durationInteger = duration.split(' ');
     durationInteger = parseInt(durationInteger[0]);
     console.log(durationInteger);
@@ -74,7 +69,7 @@ const WorkspaceForm = ({navigation}) => {
       startTime: convertedTime,
       latitude: navigation.getParam('lat'),
       longitude: navigation.getParam('long'),
-      location: substringTillStreet,
+      location: locationDescrip,
       numpeople: 1,
       startDate: formattedDate,
       endTime: end,
@@ -94,7 +89,7 @@ const WorkspaceForm = ({navigation}) => {
       navigation.getParam('Number') === undefined ||
       navigation.getParam('lat') === undefined ||
       navigation.getParam('long') === undefined ||
-      navigation.getParam('descrip') === undefined ||
+      navigation.getParam('description') === undefined ||
       title === '' ||
       description === '' ||
       duration === '' ||

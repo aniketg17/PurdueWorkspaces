@@ -90,7 +90,10 @@ const InfoScreen = ({navigation}) => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => updateDatabase()}>
+            onPress={() => {
+              updateDatabase();
+              navigation.navigate('Select an option');
+            }}>
             <Icon type="FontAwesome" name="check" />
           </TouchableOpacity>
         </View>
