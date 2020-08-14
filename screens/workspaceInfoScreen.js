@@ -8,6 +8,7 @@ import {
   Container,
   Content,
   Icon,
+  Toast,
 } from 'native-base';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import firestore from '@react-native-firebase/firestore';
@@ -92,6 +93,10 @@ const InfoScreen = ({navigation}) => {
             style={styles.button}
             onPress={() => {
               updateDatabase();
+              Toast.show({
+                type: 'success',
+                text: 'Added you to the session!',
+              });
               navigation.navigate('Select an option');
             }}>
             <Icon type="FontAwesome" name="check" />

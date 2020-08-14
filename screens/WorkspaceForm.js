@@ -13,7 +13,7 @@ import {
   Form,
   Item,
   Input,
-  Button,
+  Toast,
   Label,
   Icon,
   Textarea,
@@ -95,9 +95,16 @@ const WorkspaceForm = ({navigation}) => {
       duration === '' ||
       convertedTime === ''
     ) {
-      alert('Please fill all the fields');
+      Toast.show({
+        type: 'danger',
+        text: 'Please fill all the fields!',
+      });
     } else {
       addUserDetails();
+      Toast.show({
+        type: 'success',
+        text: 'Created the session!',
+      });
       navigation.navigate('Select an option');
     }
   };
