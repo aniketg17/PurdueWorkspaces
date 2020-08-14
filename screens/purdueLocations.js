@@ -19,8 +19,14 @@ const GooglePlacesInput = ({navigation}) => {
       renderDescription={row => row.description} // custom description render
       onPress={(data, details = null) => {
         // 'details' is provided when fetchDetails = true
+        const locationDescrip = data.description;
+        const index = locationDescrip.indexOf(
+          ',',
+          locationDescrip.indexOf(',') + 1,
+        );
+        const substringTillStreet = locationDescrip.slice(0, index);
         const location = {
-          description: data.description,
+          description: substringTillStreet,
           lat: details.geometry.location.lat,
           long: details.geometry.location.lng,
         };

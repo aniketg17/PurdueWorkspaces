@@ -58,9 +58,9 @@ const WorkspaceForm = ({navigation}) => {
       ',',
       locationDescrip.indexOf(',') + 1,
     );
+    const substringTillStreet = locationDescrip.slice(0, index);
     var durationInteger = duration.split(' ');
     durationInteger = parseInt(durationInteger[0]);
-    const substringTillStreet = locationDescrip.slice(0, index);
     console.log(durationInteger);
     const endMoment = moment(date).add(durationInteger, 'hours');
     const end = endMoment.tz('America/New_York').format('HH:mm');
@@ -84,7 +84,7 @@ const WorkspaceForm = ({navigation}) => {
       .collection('sessions')
       .add(data)
       .then(() => {
-        console.log('added details');
+        console.log('added details');
       });
   };
 
@@ -192,10 +192,10 @@ const WorkspaceForm = ({navigation}) => {
                     }
                   }}>
                   <Picker.Item label="---" value="---" />
-                  <Picker.Item label="30 minutes" value="30 minutes" />
-                  <Picker.Item label="1 hour" value="1 hour" />
-                  <Picker.Item label="2 hours" value="2 hours" />
-                  <Picker.Item label="3 hours" value="3 hours" />
+                  <Picker.Item label="30 minutes" value="30 minutes" />
+                  <Picker.Item label="1 hour" value="1 hour" />
+                  <Picker.Item label="2 hours" value="2 hours" />
+                  <Picker.Item label="3 hours" value="3 hours" />
                 </Picker>
               )}
             </View>
@@ -250,9 +250,9 @@ const styles = StyleSheet.create({
   },
   middleContainer: {
     flex: 1,
-    marginTop: 40,
+    marginTop: 35,
     backgroundColor: '#f0f8ff',
-    height: 320,
+    height: 340,
   },
   bottomContainer: {
     flex: 1,

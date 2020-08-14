@@ -145,9 +145,3 @@ const styles = StyleSheet.create({
 });
 
 export default InfoScreen;
-
-/*
-<Button success>
-        <Icon type="FontAwesome" name="check-circle" />
-      </Button>
-      */

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-
+import {Toast} from 'native-base';
 const selections = ({navigation}) => {
   return (
     <View style={styles.container}>
@@ -24,6 +24,11 @@ const selections = ({navigation}) => {
         }}>
         <Text style={styles.text}>Join an Existing Workspace</Text>
       </TouchableOpacity>
+      {navigation.getParam('added') &&
+        Toast.show({
+          text: 'Wrong password!',
+          duration: 3000,
+        })}
     </View>
   );
 };
