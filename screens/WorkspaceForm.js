@@ -128,8 +128,9 @@ const WorkspaceForm = ({navigation}) => {
           <Text>{'\n'}</Text>
           <Form>
             <Textarea
+              onChangeText={text => setDescription(text)}
               onFocus={() => hidePickers()}
-              rowSpan={7}
+              rowSpan={5}
               bordered
               placeholder="Enter description for workspace"
             />
@@ -158,7 +159,7 @@ const WorkspaceForm = ({navigation}) => {
               />
               {showClock && (
                 <DateTimePicker
-                  style={styles.spinner}
+                  style={styles.timeSpinner}
                   testID="dateTimePicker"
                   value={date}
                   mode="time"
@@ -180,7 +181,7 @@ const WorkspaceForm = ({navigation}) => {
               {showDuration && (
                 <Picker
                   selectedValue={duration}
-                  style={styles.spinner}
+                  style={styles.durationSpinner}
                   onValueChange={minutes => {
                     if (minutes !== '---') {
                       setDuration(minutes);
@@ -221,7 +222,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     paddingHorizontal: 150,
-    paddingTop: 100,
+    paddingTop: 150,
   },
   submit: {
     backgroundColor: '#1e90ff',
@@ -289,7 +290,13 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 20,
   },
-  spinner: {
+  timeSpinner: {
+    marginHorizontal: 50,
+    height: 120,
+    width: 200,
+  },
+  durationSpinner: {
+    marginTop: -20,
     marginHorizontal: 50,
     height: 120,
     width: 200,
