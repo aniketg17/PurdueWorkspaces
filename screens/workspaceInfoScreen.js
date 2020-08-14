@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
   },
   miniContainer: {
-    flex: 2,
+    flex: 1,
     flexDirection: 'row',
     backgroundColor: '#f0f8ff',
   },

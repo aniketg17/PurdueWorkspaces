@@ -20,7 +20,7 @@ const GooglePlacesInput = ({navigation}) => {
       onPress={(data, details = null) => {
         // 'details' is provided when fetchDetails = true
         const location = {
-          descrip: data.description,
+          description: data.description,
           lat: details.geometry.location.lat,
           long: details.geometry.location.lng,
         };

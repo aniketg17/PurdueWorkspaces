@@ -69,7 +69,7 @@ const ClassScreen = ({navigation}) => {
                 const dataTransfer = {
                   TitleSubject: itemData.Abbreviation,
                   Number: item.Number,
-                  descrip: 'Select Location',
+                  description: 'Select Location',
                 };
                 navigation.navigate('Create a new workspace', dataTransfer);
               } else {

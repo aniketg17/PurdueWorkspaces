@@ -29,6 +29,7 @@ const WorkspaceLoader = ({navigation}) => {
                 const dataTransfer = {
                   TitleSubject: navigation.getParam('TitleSubject'),
                   Number: navigation.getParam('Number'),
+                  description: 'Select a location',
                 };
                 navigation.navigate('Create a new workspace', dataTransfer);
               }}>

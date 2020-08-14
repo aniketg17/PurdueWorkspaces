@@ -135,7 +135,6 @@ const WorkspaceForm = ({navigation}) => {
                 placeholder="Enter description for workspace"
               />
             </Form>
-            <Text>{'\n'}</Text>
           </View>
 
           <View style={styles.middleContainer}>
@@ -147,7 +146,7 @@ const WorkspaceForm = ({navigation}) => {
                   hidePickers();
                 }}>
                 <Text style={styles.locationText}>
-                  {navigation.getParam('descrip')}
+                  {navigation.getParam('description')}
                 </Text>
               </TouchableOpacity>
               <TextInput
@@ -251,6 +250,7 @@ const styles = StyleSheet.create({
   },
   middleContainer: {
     flex: 1,
+    marginTop: 40,
     backgroundColor: '#f0f8ff',
     height: 320,
   },
@@ -319,91 +319,3 @@ const styles = StyleSheet.create({
 });
 
 export default WorkspaceForm;
-
-/*
-<View style={styles.container}>
-      <Text>{navigation.getParam('descrip')}</Text>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Select a location')}>
-        <Text>{locationPlaceholder}</Text>
-      </TouchableOpacity>
-      <Text style={styles.formLabel}>
-        Subject : {navigation.getParam('TitleSubject')}
-      </Text>
-      <Text style={styles.formLabel}>
-        Class : {navigation.getParam('Number')}
-      </Text>
-      <TextInput
-        placeholder="Title"
-        value={title}
-        onChangeText={text => {
-          setTitle(text);
-        }}
-        onFocus={() => {
-          setShowDuration(false);
-          setClock(false);
-        }}
-      />
-      <TextInput
-        placeholder="Additional info..."
-        value={description}
-        onChangeText={text => {
-          setDescription(text);
-        }}
-        onFocus={() => {
-          setShowDuration(false);
-          setClock(false);
-        }}
-      />
-      <TouchableOpacity onPress={() => validateInput()}>
-        <Text>Submit information</Text>
-      </TouchableOpacity>
-      <TextInput
-        placeholder="Choose starting time for session..."
-        style={styles.inputStyle}
-        value={originalTime}
-        onFocus={() => {
-          setShowDuration(false);
-          setClock(true);
-        }}
-      />
-      {showClock && (
-        <DateTimePicker
-          style={styles.spinner}
-          testID="dateTimePicker"
-          value={date}
-          mode="time"
-          is24Hour={true}
-          display="default"
-          onChange={onChange}
-        />
-      )}
-      <TextInput
-        placeholder="Choose duration for session..."
-        value={duration}
-        style={styles.inputStyle}
-        onFocus={() => {
-          setClock(false);
-          setShowDuration(true);
-        }}
-      />
-      {showDuration && (
-        <Picker
-          selectedValue={duration}
-          style={{height: 30, width: 300}}
-          onValueChange={minutes => {
-            if (minutes !== '---') {
-              setDuration(minutes);
-            } else {
-              setDuration('');
-            }
-          }}>
-          <Picker.Item label="---" value="---" />
-          <Picker.Item label="30 minutes" value="30 minutes" />
-          <Picker.Item label="1 hour" value="1 hour" />
-          <Picker.Item label="2 hours" value="2 hours" />
-          <Picker.Item label="3 hours" value="3 hours" />
-        </Picker>
-      )}
-    </View>
-*/
