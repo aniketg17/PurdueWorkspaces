@@ -1,7 +1,7 @@
 import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
 import Subjects from '../screens/subjectScreen';
-import Class from '../screens/classScreen';
+import Course from '../screens/courseScreen';
 import WorkspaceForm from '../screens/workspaceForm';
 import Locations from '../screens/purdueLocations';
 import Selection from '../screens/selectionScreen';
@@ -15,8 +15,8 @@ const screens = {
   'Select a subject': {
     screen: Subjects,
   },
-  'Select a class': {
-    screen: Class,
+  'Select a course': {
+    screen: Course,
   },
   'Create a new workspace': {
     screen: WorkspaceForm,

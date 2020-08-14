@@ -65,14 +65,18 @@ const ClassScreen = ({navigation}) => {
           <TouchableOpacity
             style={styles.item}
             onPress={() => {
-              const subTitle = itemData.Abbreviation;
-              const dataTransfer = {
-                TitleSubject: subTitle,
-                Number: item.Number,
-              };
               if (navigation.getParam('route') === 'new') {
+                const dataTransfer = {
+                  TitleSubject: itemData.Abbreviation,
+                  Number: item.Number,
+                  descrip: 'Select Location',
+                };
                 navigation.navigate('Create a new workspace', dataTransfer);
               } else {
+                const dataTransfer = {
+                  TitleSubject: itemData.Abbreviation,
+                  Number: item.Number,
+                };
                 navigation.navigate('Select a workspace', dataTransfer);
               }
             }}>

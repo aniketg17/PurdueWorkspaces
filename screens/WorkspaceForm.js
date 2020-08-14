@@ -6,6 +6,18 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import {
+  Container,
+  Header,
+  Content,
+  Form,
+  Item,
+  Input,
+  Button,
+  Label,
+  Icon,
+  Textarea,
+} from 'native-base';
 import 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
@@ -23,6 +35,7 @@ const WorkspaceForm = ({navigation}) => {
   const [convertedTime, setConvertedTime] = useState('');
   const [originalTime, setOriginalTime] = useState('');
   const [formattedDate, setFormattedDate] = useState('');
+  const [locationPlaceholder, setLocation] = useState('Select Location');
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -90,16 +103,169 @@ const WorkspaceForm = ({navigation}) => {
       alert('Please fill all the fields');
     } else {
       addUserDetails();
-      navigation.navigate('Select a class');
+      navigation.navigate('Select a course');
     }
   };
 
   return (
-    <View style={styles.container}>
+    <Container style={styles.container}>
+      <Content padder>
+        <Form>
+          <Item success>
+            {/*error */}
+            <Input placeholder="Enter title for workspace" />
+            <Icon name="checkmark-circle" />
+            <Icon name="close-circle" />
+          </Item>
+          <Text>{'\n'}</Text>
+          <Form>
+            <Textarea
+              rowSpan={7}
+              bordered
+              placeholder="Enter description for workspace"
+            />
+          </Form>
+          <Text>{'\n'}</Text>
+          <View style={styles.miniContainer}>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate('Select a location')}>
+                <Text style={styles.locationText}>
+                  {navigation.getParam('descrip')}
+                </Text>
+              </TouchableOpacity>
+              <TextInput
+                placeholder="Choose starting time for session..."
+                style={styles.inputStyle}
+                value={originalTime}
+                onFocus={() => {
+                  setShowDuration(false);
+                  setClock(true);
+                }}
+              />
+              {showClock && (
+                <DateTimePicker
+                  style={styles.spinner}
+                  testID="dateTimePicker"
+                  value={date}
+                  mode="time"
+                  is24Hour={true}
+                  display="default"
+                  onChange={onChange}
+                />
+              )}
+              <TextInput
+                placeholder="Choose duration for session..."
+                value={duration}
+                style={styles.inputStyle}
+                onFocus={() => {
+                  setClock(false);
+                  setShowDuration(true);
+                }}
+              />
+              {showDuration && (
+                <Picker
+                  selectedValue={duration}
+                  style={{height: 30, width: 300}}
+                  onValueChange={minutes => {
+                    if (minutes !== '---') {
+                      setDuration(minutes);
+                    } else {
+                      setDuration('');
+                    }
+                  }}>
+                  <Picker.Item label="---" value="---" />
+                  <Picker.Item label="30 minutes" value="30 minutes" />
+                  <Picker.Item label="1 hour" value="1 hour" />
+                  <Picker.Item label="2 hours" value="2 hours" />
+                  <Picker.Item label="3 hours" value="3 hours" />
+                </Picker>
+              )}
+            </View>
+          </View>
+        </Form>
+      </Content>
+    </Container>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f0f8ff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  formLabel: {
+    fontSize: 20,
+    color: '#000000',
+    marginTop: 0,
+  },
+  miniContainer: {
+    flex: 1,
+    backgroundColor: '#f0f8ff',
+  },
+  buttonContainer: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    paddingHorizontal: 45,
+  },
+  pickerContainer: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    paddingHorizontal: 95,
+  },
+  button: {
+    backgroundColor: '#1e90ff',
+    height: 50,
+    justifyContent: 'center',
+    alignContent: 'center',
+    width: 300,
+    paddingHorizontal: 37,
+    borderRadius: 40,
+  },
+  inputStyle: {
+    marginTop: 20,
+    width: 300,
+    height: 50,
+    paddingHorizontal: 10,
+    borderRadius: 50,
+    borderWidth: 0.5,
+    backgroundColor: '#fff5ee',
+    textAlign: 'center',
+  },
+  formText: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#fff',
+    fontSize: 20,
+  },
+  locationText: {
+    textAlign: 'center',
+    fontFamily: 'cochin',
+    fontSize: 18,
+  },
+  text: {
+    color: '#000000',
+    fontSize: 20,
+  },
+  spinner: {
+    marginHorizontal: 50,
+    height: 120,
+    width: 200,
+  },
+});
+
+export default WorkspaceForm;
+
+/*
+<View style={styles.container}>
       <Text>{navigation.getParam('descrip')}</Text>
       <TouchableOpacity
         onPress={() => navigation.navigate('Select a location')}>
-        <Text>Select Location</Text>
+        <Text>{locationPlaceholder}</Text>
       </TouchableOpacity>
       <Text style={styles.formLabel}>
         Subject : {navigation.getParam('TitleSubject')}
@@ -180,47 +346,4 @@ const WorkspaceForm = ({navigation}) => {
         </Picker>
       )}
     </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f0f8ff',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  formLabel: {
-    fontSize: 20,
-    color: '#000000',
-    marginTop: 0,
-  },
-  inputStyle: {
-    marginTop: 20,
-    width: 300,
-    height: 40,
-    paddingHorizontal: 10,
-    borderRadius: 50,
-    backgroundColor: '#fff5ee',
-  },
-  formText: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#fff',
-    fontSize: 20,
-  },
-  text: {
-    color: '#000000',
-    fontSize: 20,
-  },
-  spinner: {
-    justifyContent: 'center',
-    paddingHorizontal: 0,
-
-    height: 150,
-    width: 200,
-  },
-});
-
-export default WorkspaceForm;
+*/

@@ -62,7 +62,7 @@ const SubjectScreen = ({navigation}) => {
                 route: routeData,
               };
               console.log(transferData.route);
-              navigation.navigate('Select a class', transferData);
+              navigation.navigate('Select a course', transferData);
             }}>
             <Text style={styles.text}>
               {item.Name} ({item.Abbreviation})
