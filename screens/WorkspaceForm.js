@@ -8,16 +8,13 @@ import {
 } from 'react-native';
 import {
   Container,
-  Header,
   Content,
   Form,
   Item,
   Input,
   Toast,
-  Label,
   Icon,
   Textarea,
-  Footer,
 } from 'native-base';
 import 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -48,7 +45,9 @@ const WorkspaceForm = ({navigation}) => {
       .format('hh:mm A')
       .toString(); // date to be displayed in scrollview
     setOriginalTime(currentTime);
-    const formattedD = moment(currentDate).format('MM-DD-YYYY'); // date to be stored
+    const formattedD = moment(currentDate)
+      .tz('America/New_York')
+      .format('MM-DD-YYYY'); // date to be stored
     setFormattedDate(formattedD);
   };
 
@@ -57,9 +56,12 @@ const WorkspaceForm = ({navigation}) => {
     var durationInteger = duration.split(' ');
     durationInteger = parseInt(durationInteger[0]);
     console.log(durationInteger);
+    if (durationInteger === 30) {
+      durationInteger = 0.5;
+    }
     const endMoment = moment(date).add(durationInteger, 'hours');
-    const end = endMoment.tz('America/New_York').format('HH:mm');
-    const endDate = endMoment.format('MM-DD-YYYY');
+    const endTime = endMoment.tz('America/New_York').format('HH:mm');
+    const endDate = endMoment.tz('America/New_York').format('MM-DD-YYYY');
     const data = {
       title: title,
       subject: navigation.getParam('TitleSubject'),
@@ -72,7 +74,7 @@ const WorkspaceForm = ({navigation}) => {
       location: locationDescrip,
       numpeople: 1,
       startDate: formattedDate,
-      endTime: end,
+      endTime: endTime,
       endDate: endDate,
     };
     firestore()
@@ -84,6 +86,18 @@ const WorkspaceForm = ({navigation}) => {
   };
 
   const validateInput = () => {
+    var durationInteger = duration.split(' ');
+    durationInteger = parseInt(durationInteger[0]);
+    console.log(durationInteger);
+    if (durationInteger === 30) {
+      durationInteger = 0.5;
+    }
+    const endMoment = moment(date).add(durationInteger, 'hours');
+    const endSessionDateTime = endMoment.tz('America/New_York').toDate();
+    const currentDateTime = moment()
+      .tz('America/New_York')
+      .toDate();
+
     if (
       navigation.getParam('TitleSubject') === undefined ||
       navigation.getParam('Number') === undefined ||
@@ -97,7 +111,12 @@ const WorkspaceForm = ({navigation}) => {
     ) {
       Toast.show({
         type: 'danger',
-        text: 'Please fill all the fields!',
+        text: 'Please fill all the information!',
+      });
+    } else if (endSessionDateTime.getTime() < currentDateTime.getTime()) {
+      Toast.show({
+        type: 'danger',
+        text: 'Please choose the correct time!',
       });
     } else {
       addUserDetails();

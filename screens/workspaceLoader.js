@@ -1,15 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  FlatList,
-  TextInput,
-  TouchableOpacity,
-  ActivityIndicator,
-} from 'react-native';
+import {Text, View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import Loader from '../components/loadingCircle';
+import moment from 'moment';
 
 const WorkspaceLoader = ({navigation}) => {
   const [returnedSubjects, setSubjects] = useState([]);
@@ -24,7 +17,6 @@ const WorkspaceLoader = ({navigation}) => {
           <View>
             <Text style={styles.unavailableText}>Nothing here!</Text>
             <TouchableOpacity
-              //style={styles.item}
               onPress={() => {
                 const dataTransfer = {
                   TitleSubject: navigation.getParam('TitleSubject'),
@@ -45,6 +37,9 @@ const WorkspaceLoader = ({navigation}) => {
   useEffect(() => {
     const abbreviation = navigation.getParam('TitleSubject');
     const classSelected = navigation.getParam('Number');
+    const presentDate = moment()
+      .tz('America/New_York')
+      .toDate();
     firestore()
       .collection('sessions')
       .where('class', '==', classSelected.toString())
@@ -52,12 +47,56 @@ const WorkspaceLoader = ({navigation}) => {
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(documentSnapshot => {
-          setSubjects(prevData => [...prevData, documentSnapshot]);
+          console.log('HELLO');
+          const endTime = documentSnapshot.data().endTime;
+          const endDate = documentSnapshot.data().endDate;
+          const sessionYear = endDate.substr(6, 4);
+          const sessionMonth = endDate.substr(0, 2);
+          const sessionDate = endDate.substr(3, 2);
+          const sessionHour = endTime.substr(0, 2);
+          const sessionMinute = endTime.substr(3, 2);
           console.log(
-            'User ID: ',
-            documentSnapshot.id,
-            documentSnapshot.data(),
+            sessionMonth +
+              '/' +
+              sessionDate +
+              '/' +
+              sessionYear +
+              ' ' +
+              sessionHour +
+              ':' +
+              sessionMinute +
+              ':' +
+              '00',
           );
+          const sessionCurrentDate = new Date(
+            sessionMonth +
+              '/' +
+              sessionDate +
+              '/' +
+              sessionYear +
+              ' ' +
+              sessionHour +
+              ':' +
+              sessionMinute +
+              ':' +
+              '00',
+          );
+          if (sessionCurrentDate < presentDate) {
+            firestore()
+              .collection('sessions')
+              .doc(documentSnapshot.id)
+              .delete()
+              .then(() => {
+                console.log('User deleted!');
+              });
+          } else {
+            setSubjects(prevData => [...prevData, documentSnapshot]);
+            console.log(
+              'User ID: ',
+              documentSnapshot.id,
+              documentSnapshot.data(),
+            );
+          }
         });
         setLoaded(true);
       });
@@ -66,7 +105,6 @@ const WorkspaceLoader = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      {/* <SearchBar query={query} searchText={searchText} /> */}
       <FlatList
         data={returnedSubjects}
         keyExtractor={({id}) => id}
