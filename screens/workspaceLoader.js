@@ -55,6 +55,7 @@ const WorkspaceLoader = ({navigation}) => {
           const sessionDate = endDate.substr(3, 2);
           const sessionHour = endTime.substr(0, 2);
           const sessionMinute = endTime.substr(3, 2);
+
           console.log(
             sessionMonth +
               '/' +
@@ -69,19 +70,15 @@ const WorkspaceLoader = ({navigation}) => {
               '00',
           );
           const sessionCurrentDate = new Date(
-            sessionMonth +
-              '/' +
-              sessionDate +
-              '/' +
-              sessionYear +
-              ' ' +
-              sessionHour +
-              ':' +
-              sessionMinute +
-              ':' +
-              '00',
+            sessionYear,
+            sessionMonth,
+            sessionDate,
+            sessionHour,
+            sessionMinute,
+            0,
+            0,
           );
-          if (sessionCurrentDate < presentDate) {
+          if (sessionCurrentDate.getTime() < presentDate.getTime()) {
             firestore()
               .collection('sessions')
               .doc(documentSnapshot.id)
@@ -120,6 +117,7 @@ const WorkspaceLoader = ({navigation}) => {
                 endTime: item.data().endTime,
                 numPeople: item.data().numpeople,
                 class: item.data().class,
+                startDate: item.data().startDate,
                 subject: item.data().subject,
                 id: item.id,
               };

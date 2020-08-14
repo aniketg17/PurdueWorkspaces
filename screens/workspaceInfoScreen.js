@@ -70,6 +70,8 @@ const InfoScreen = ({navigation}) => {
                   {navigation.getParam('description') + '\n\n'}
                   <Text style={styles.boldWord}>Location: </Text>
                   {navigation.getParam('location') + '\n\n'}
+                  <Text style={styles.boldWord}>Date: </Text>
+                  {navigation.getParam('startDate') + '\n\n'}
                   <Text style={styles.boldWord}>Start time: </Text>
                   {navigation.getParam('startTime') + '\n\n'}
                   <Text style={styles.boldWord}>End time: </Text>
