@@ -17,6 +17,7 @@ import {
   Label,
   Icon,
   Textarea,
+  Footer,
 } from 'native-base';
 import 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -35,7 +36,6 @@ const WorkspaceForm = ({navigation}) => {
   const [convertedTime, setConvertedTime] = useState('');
   const [originalTime, setOriginalTime] = useState('');
   const [formattedDate, setFormattedDate] = useState('');
-  const [locationPlaceholder, setLocation] = useState('Select Location');
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -116,27 +116,29 @@ const WorkspaceForm = ({navigation}) => {
     <Container style={styles.container}>
       <Content padder>
         <Form>
-          <Item>
-            {/*error */}
-            <Input
-              onChangeText={text => setTitle(text)}
-              onFocus={() => hidePickers()}
-              placeholder="Enter title for workspace"
-            />
-            <Icon type="FontAwesome5" name="heading" />
-          </Item>
-          <Text>{'\n'}</Text>
-          <Form>
-            <Textarea
-              onChangeText={text => setDescription(text)}
-              onFocus={() => hidePickers()}
-              rowSpan={5}
-              bordered
-              placeholder="Enter description for workspace"
-            />
-          </Form>
-          <Text>{'\n'}</Text>
-          <View style={styles.bottomContainer}>
+          <View style={styles.upperContainer}>
+            <Item>
+              <Input
+                onChangeText={text => setTitle(text)}
+                onFocus={() => hidePickers()}
+                placeholder="Enter title for workspace"
+              />
+              <Icon type="FontAwesome5" name="heading" />
+            </Item>
+            <Form>
+              <Textarea
+                onChangeText={text => setDescription(text)}
+                onFocus={() => hidePickers()}
+                rowSpan={5}
+                style={{marginTop: 40}}
+                bordered
+                placeholder="Enter description for workspace"
+              />
+            </Form>
+            <Text>{'\n'}</Text>
+          </View>
+
+          <View style={styles.middleContainer}>
             <View style={styles.buttonsContainer}>
               <TouchableOpacity
                 style={styles.button}
@@ -180,6 +182,7 @@ const WorkspaceForm = ({navigation}) => {
               />
               {showDuration && (
                 <Picker
+                  itemStyle={{height: 150}}
                   selectedValue={duration}
                   style={styles.durationSpinner}
                   onValueChange={minutes => {
@@ -197,6 +200,8 @@ const WorkspaceForm = ({navigation}) => {
                 </Picker>
               )}
             </View>
+          </View>
+          <View style={styles.bottomContainer}>
             <View style={styles.submitContainer}>
               <TouchableOpacity
                 style={styles.submit}
@@ -213,16 +218,22 @@ const WorkspaceForm = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 3,
     backgroundColor: '#f0f8ff',
     justifyContent: 'center',
     alignItems: 'center',
   },
   submitContainer: {
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignContent: 'center',
     paddingHorizontal: 150,
-    paddingTop: 150,
+    paddingTop: 40,
+    marginBottom: 36,
+  },
+  upperContainer: {
+    flex: 1,
+    marginTop: 20,
+    backgroundColor: '#f0f8ff',
   },
   submit: {
     backgroundColor: '#1e90ff',
@@ -237,6 +248,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#000000',
     marginTop: 0,
+  },
+  middleContainer: {
+    flex: 1,
+    backgroundColor: '#f0f8ff',
+    height: 320,
   },
   bottomContainer: {
     flex: 1,
@@ -296,7 +312,6 @@ const styles = StyleSheet.create({
     width: 200,
   },
   durationSpinner: {
-    marginTop: -20,
     marginHorizontal: 50,
     height: 120,
     width: 200,
