@@ -33,7 +33,7 @@ Run the following steps on command line:
 
 3. Wait for your simulator to open.
 
-## Quick tidbits
+## Logistical tidbits
 1. As mentioned before, Firebase's Firestore is used to store data regarding the sessions. To maintain consistency in the database, whenever a timestamp for joining or creating a new session is recorded, to be safe, the time is converted into EST (Eastern Standard Time). 
 2. All the locations that are rendered on ```purdueLocations.js``` are biased to be in and around Purdue University.
 3. ```Purdue API``` gets updated often and reflects the current course catalog always. In those terms, the application is robust and will always include all of the given semester's courses and subjects.
@@ -48,5 +48,7 @@ The second gif shows how a user can join an existing workspace. In this case, 2 
 
 ![ezgif-5-58f3c78f4202](https://user-images.githubusercontent.com/54602672/90313210-4fe03100-df28-11ea-83af-5ddfbbe2b965.gif)
 
-
-
+## Further scope of improvement
+Further improvements can be made to this project, of course. 
+1. Given more time, I would probably want to add a user authentication system to avoid the problem of fake/artificially-inflated attendee counts. 
+2. Furthermore, as an additional feature, which rests upon the aforementioned authentication system, is a robust messaging system. With that, there will be no need at all to potentially have to share contact information. At that point, this app will certainly become fully self-sufficient.
