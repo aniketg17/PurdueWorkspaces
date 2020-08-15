@@ -40,6 +40,13 @@ Run the following steps on command line:
 4. The ideal way to delete sessions in the database is to delete the sessions when the time is past the sessions' end time. To do this, most likely a server or script that runs all the time is needed, which would cost money. To avoid this, the delete operation runs when a user tries to fetch sessions of a particular course. Only the workspace sessions that are active or yet to be active will be visible and the rest are deleted automatically. 
 
 ## Demo
+The first gif demonstrates the workspace creation process:
 
-![ezgif-5-9382c9ed2481](https://user-images.githubusercontent.com/54602672/90313071-1ce96d80-df27-11ea-8c1d-e8f9a25c2bde.gif)
+![ezgif-5-92f9f8eb918a](https://user-images.githubusercontent.com/54602672/90313207-4bb41380-df28-11ea-8aac-7e53f5abdbe8.gif)
+
+The second gif shows how a user can join an existing workspace. In this case, 2 people are already in the initially created workspace (the host and then a sample attendee):
+
+![ezgif-5-58f3c78f4202](https://user-images.githubusercontent.com/54602672/90313210-4fe03100-df28-11ea-83af-5ddfbbe2b965.gif)
+
+
 
