@@ -14,19 +14,22 @@ const WorkspaceLoader = ({navigation}) => {
     } else {
       if (returnedSubjects.length === 0) {
         return (
-          <View>
+          <View style={styles.unavailableContainer}>
             <Text style={styles.unavailableText}>Nothing here!</Text>
-            <TouchableOpacity
-              onPress={() => {
-                const dataTransfer = {
-                  TitleSubject: navigation.getParam('TitleSubject'),
-                  Number: navigation.getParam('Number'),
-                  description: 'Select a location',
-                };
-                navigation.navigate('Create a new workspace', dataTransfer);
-              }}>
-              <Text style={styles.redirectButton}>Want to create one?</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  const dataTransfer = {
+                    TitleSubject: navigation.getParam('TitleSubject'),
+                    Number: navigation.getParam('Number'),
+                    description: 'Select a location',
+                  };
+                  navigation.navigate('Create a new workspace', dataTransfer);
+                }}>
+                <Text style={styles.basicText}>Want to create one?</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         );
       }
@@ -37,6 +40,7 @@ const WorkspaceLoader = ({navigation}) => {
   useEffect(() => {
     const abbreviation = navigation.getParam('TitleSubject');
     const classSelected = navigation.getParam('Number');
+    // current time normalization
     const presentDate = moment()
       .tz('America/New_York')
       .toDate();
@@ -79,6 +83,7 @@ const WorkspaceLoader = ({navigation}) => {
             0,
             0,
           );
+          // session time normalization
           sessionCurrentDate = moment()
             .tz('America/New_York')
             .toDate();
@@ -90,6 +95,7 @@ const WorkspaceLoader = ({navigation}) => {
               documentSnapshot.id,
               documentSnapshot.data(),
             );
+            // deletion of the relevant document from database
             firestore()
               .collection('sessions')
               .doc(documentSnapshot.id)
@@ -98,6 +104,7 @@ const WorkspaceLoader = ({navigation}) => {
                 console.log('User deleted!');
               });
           } else {
+            // adding data to the list for rendering
             setSubjects(prevData => [...prevData, documentSnapshot]);
             console.log(
               'User ID: ',
@@ -134,7 +141,7 @@ const WorkspaceLoader = ({navigation}) => {
               };
               navigation.navigate('Workspace info', dataTransfer);
             }}>
-            <Text style={styles.text}>
+            <Text style={styles.infoText}>
               <Text style={styles.label}>Title: </Text>
               {item.data().title.toString()}
               {'\n'}
@@ -168,10 +175,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffe4b5',
     borderRadius: 50,
   },
-  text: {
-    fontFamily: 'cochin',
+  infoText: {
     fontWeight: 'normal',
     fontSize: 24,
+    fontFamily: 'cochin',
+  },
+  basicText: {
+    fontWeight: 'normal',
+    fontSize: 24,
+    fontFamily: 'cochin',
+    textAlign: 'center',
   },
   label: {
     fontFamily: 'cochin',
@@ -186,13 +199,27 @@ const styles = StyleSheet.create({
     paddingHorizontal: 100,
     width: 1000,
   },
-  redirectButton: {
-    fontStyle: 'italic',
-    fontSize: 24,
-    paddingTop: 50,
-    paddingHorizontal: 100,
-    width: 1000,
-    color: '#1e90ff',
+
+  button: {
+    backgroundColor: '#1e90ff',
+    height: 100,
+    justifyContent: 'center',
+    alignContent: 'center',
+    width: 'auto',
+    borderRadius: 50,
+    textAlign: 'center',
+  },
+  unavailableContainer: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    paddingTop: 40,
+  },
+  buttonContainer: {
+    justifyContent: 'flex-end',
+    alignContent: 'center',
+    paddingHorizontal: 80,
+    paddingTop: 40,
+    marginBottom: 36,
   },
 });
 
