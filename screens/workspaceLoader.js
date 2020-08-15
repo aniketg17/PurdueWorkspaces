@@ -47,7 +47,6 @@ const WorkspaceLoader = ({navigation}) => {
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(documentSnapshot => {
-          console.log('HELLO');
           const endTime = documentSnapshot.data().endTime;
           const endDate = documentSnapshot.data().endDate;
           const sessionYear = endDate.substr(6, 4);
@@ -71,7 +70,7 @@ const WorkspaceLoader = ({navigation}) => {
           );
           console.log('current date: ' + presentDate.toString());
 
-          const sessionCurrentDate = new Date(
+          var sessionCurrentDate = new Date(
             sessionYear,
             sessionMonth - 1,
             sessionDate,
@@ -80,9 +79,17 @@ const WorkspaceLoader = ({navigation}) => {
             0,
             0,
           );
+          sessionCurrentDate = moment()
+            .tz('America/New_York')
+            .toDate();
           console.log('session: ' + sessionCurrentDate.toString());
 
           if (sessionCurrentDate.getTime() < presentDate.getTime()) {
+            console.log(
+              'deleted: ',
+              documentSnapshot.id,
+              documentSnapshot.data(),
+            );
             firestore()
               .collection('sessions')
               .doc(documentSnapshot.id)

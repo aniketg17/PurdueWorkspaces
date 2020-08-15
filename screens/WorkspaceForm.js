@@ -39,16 +39,16 @@ const WorkspaceForm = ({navigation}) => {
     setDate(currentDate);
     const converted = moment(currentDate)
       .tz('America/New_York')
-      .format('HH:mm'); // date to be used in firestore in EST
+      .format('HH:mm'); // time to be used in firestore in EST
     setConvertedTime(converted);
     const currentTime = moment(currentDate)
       .format('hh:mm A')
-      .toString(); // date to be displayed in scrollview
+      .toString(); // local time to be displayed in scrollview
     setOriginalTime(currentTime);
-    const formattedD = moment(currentDate)
+    const formattedConvertedDate = moment(currentDate)
       .tz('America/New_York')
-      .format('MM-DD-YYYY'); // date to be stored
-    setFormattedDate(formattedD);
+      .format('MM-DD-YYYY'); // date to be stored in firestore in EST
+    setFormattedDate(formattedConvertedDate);
   };
 
   const addUserDetails = () => {
