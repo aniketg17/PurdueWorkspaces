@@ -1,6 +1,12 @@
 import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 
+/*
+ * This screen is where the user reaches upon initialization
+ * of the app. Here, the user makes the choice
+ * between joining an existing workspace or creating a new one.
+ */
+
 const selections = ({navigation}) => {
   return (
     <View style={styles.container}>

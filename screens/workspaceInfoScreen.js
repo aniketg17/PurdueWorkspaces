@@ -13,6 +13,13 @@ import {
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import firestore from '@react-native-firebase/firestore';
 
+/*
+ * This screen shows the information of the selected workspace
+ * and allows the user to join the given workspace. Upon, joining
+ * the user is taken back to home screen and the count in the chosen
+ * workspace is incremented in the backend.
+ */
+
 const InfoScreen = ({navigation}) => {
   var numPeople = navigation.getParam('numPeople');
   const id = navigation.getParam('id');
@@ -34,6 +41,7 @@ const InfoScreen = ({navigation}) => {
   }, []); // passing an empty array to ensure useeffect only runs once
 
   const updateDatabase = () => {
+    // updating database with incremented count
     firestore()
       .collection('sessions')
       .doc(id)

@@ -4,6 +4,13 @@ import firestore from '@react-native-firebase/firestore';
 import Loader from '../components/loadingCircle';
 import moment from 'moment';
 
+/*
+ * This screen loads the different workspaces available in the
+ * chosen subject and course and shows their basic information.
+ * Upon choosing a workspace, a user is shown more detailed info
+ * on the next screen.
+ */
+
 const WorkspaceLoader = ({navigation}) => {
   const [returnedSubjects, setSubjects] = useState([]);
   const [isLoaded, setLoaded] = useState(false);

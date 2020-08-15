@@ -1,9 +1,14 @@
 import React, {useState} from 'react';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
-import {StyleSheet, Text, Dimensions, View} from 'react-native';
 import {v4 as uuid} from 'uuid';
 
 const KEY = 'AIzaSyBEk2cllJeg-VgSQbYMPmHHfceBtJ6Aa0o';
+
+/*
+ * This screen uses Google Locations API to list locations
+ * around Purdue campus depending on user's choice. The locations
+ * are biased to be around campus and in West Lafayette.
+ */
 
 const GooglePlacesInput = ({navigation}) => {
   const [id, setID] = useState(uuid());

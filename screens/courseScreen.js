@@ -4,6 +4,13 @@ import SearchBar from '../components/searchBar';
 import 'react-native-gesture-handler';
 import Loader from '../components/loadingCircle';
 
+/*
+ * This screen renders the course list from Purdue's course
+ * catalog API. Depending on the initial choice, the user
+ * is taken to either create a new workspace or join an existing
+ * one.
+ */
+
 const ClassScreen = ({navigation}) => {
   const [classes, setClasses] = useState([]);
   const [loaded, setLoaded] = useState(false);

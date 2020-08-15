@@ -23,6 +23,14 @@ import 'moment-timezone';
 import {Picker} from '@react-native-community/picker';
 import firestore from '@react-native-firebase/firestore';
 
+/*
+ * This screen renders the form which is used to create a new
+ * Workspace. This workspace data is stored in Firebase's Firestore
+ * database. Note: On device, the local time will be shown, however
+ * when a new workspace is created, the time is always normalized
+ * to be stored in EST to maintain database consistency.
+ */
+
 const WorkspaceForm = ({navigation}) => {
   const [duration, setDuration] = useState('');
   const [showClock, setClock] = useState(false);
