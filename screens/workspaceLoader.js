@@ -69,15 +69,19 @@ const WorkspaceLoader = ({navigation}) => {
               ':' +
               '00',
           );
+          console.log('current date: ' + presentDate.toString());
+
           const sessionCurrentDate = new Date(
             sessionYear,
-            sessionMonth,
+            sessionMonth - 1,
             sessionDate,
             sessionHour,
             sessionMinute,
             0,
             0,
           );
+          console.log('session: ' + sessionCurrentDate.toString());
+
           if (sessionCurrentDate.getTime() < presentDate.getTime()) {
             firestore()
               .collection('sessions')

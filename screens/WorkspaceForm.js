@@ -153,7 +153,8 @@ const WorkspaceForm = ({navigation}) => {
                 rowSpan={5}
                 style={{marginTop: 40}}
                 bordered
-                placeholder="Enter description for workspace"
+                placeholder={'Enter info for workspace eg. phone, name etc.'}
+                multiline
               />
             </Form>
           </View>
