@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
   },
   upperContainer: {
     flex: 3,
-    backgroundColor: '#f0f8ff', // #feffcb
+    backgroundColor: '#f0f8ff',
     alignItems: 'center',
     justifyContent: 'center',
   },

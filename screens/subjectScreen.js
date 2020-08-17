@@ -5,6 +5,12 @@ import 'react-native-gesture-handler';
 import SearchBar from '../components/searchBar';
 import LoadingCircle from '../components/loadingCircle';
 
+/*
+ * This screen renders the subject list from Purdue's course
+ * catalog API. From here the user is taken to the course list
+ * to see the respective subject's courses.
+ */
+
 const SubjectScreen = ({navigation}) => {
   const [subjects, setSubject] = useState([]);
   const SUBJECT_QUERY_URL = 'http://api.purdue.io/odata/Subjects';

@@ -16,6 +16,8 @@ const WorkspaceLoader = ({navigation}) => {
   const [isLoaded, setLoaded] = useState(false);
 
   const renderLoader = () => {
+    // If there is no data to show or data has not been loaded yet, this
+    // function will be called.
     if (!isLoaded) {
       return <Loader />;
     } else {
@@ -91,7 +93,7 @@ const WorkspaceLoader = ({navigation}) => {
             0,
           );
           // session time normalization
-          sessionCurrentDate = moment()
+          sessionCurrentDate = moment(sessionCurrentDate)
             .tz('America/New_York')
             .toDate();
           console.log('session: ' + sessionCurrentDate.toString());
