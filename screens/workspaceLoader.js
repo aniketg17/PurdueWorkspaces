@@ -83,19 +83,24 @@ const WorkspaceLoader = ({navigation}) => {
           );
           console.log('current date: ' + presentDate.toString());
 
-          var sessionCurrentDate = new Date(
-            sessionYear,
-            sessionMonth - 1,
-            sessionDate,
-            sessionHour,
-            sessionMinute,
-            0,
-            0,
-          );
           // session time normalization
-          sessionCurrentDate = moment(sessionCurrentDate)
-            .tz('America/New_York')
+          const sessionString =
+            sessionYear +
+            '-' +
+            sessionMonth +
+            '-' +
+            sessionDate +
+            ' ' +
+            sessionHour +
+            ':' +
+            sessionMinute;
+
+          console.log(sessionString);
+
+          const sessionCurrentDate = moment
+            .tz(sessionString, 'America/New_York')
             .toDate();
+
           console.log('session: ' + sessionCurrentDate.toString());
 
           if (sessionCurrentDate.getTime() < presentDate.getTime()) {
